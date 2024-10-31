@@ -5,6 +5,7 @@ import Hero from "./components/Hero/Hero";
 import Body from "./components/Body/Body";
 // import ChatComponent from "./components/Stream/ChatComponent";
 import Footer from "./components/Footer/Footer";
+import ChatWidget from "./components/ChatWidget/ChatWidget";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Body />
       {/* <ChatComponent /> */}
       <Footer />
+      <ChatWidget />
     </Theme>
   );
 };
