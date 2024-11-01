@@ -8,7 +8,7 @@ import expertsLogo from "../../assets/experts-logo.png";
 
 const Header = () => {
   return (
-    <Flex as="header" height="100px" bg="#673ab7" width="100%">
+    <Flex as="header" height="100px" bg="#9333ea" width="100%">
       <HStack gap="30px" marginBottom="10px" marginTop="10px" width="100%" marginX="22px">
         <Box>
           <LinkBox>
