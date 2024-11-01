@@ -9,9 +9,19 @@ const Footer = () => {
       <Separator />
       <Flex align="center" justify="center" bg="white" height="100%" paddingY="50px">
         <VStack>
-          <Text color="black" fontWeight="extrabold" fontSize="2xl">
-            Einstein Personalization demo with Agentforce
-          </Text>
+          <HStack>
+            <Text color="black" fontWeight="extrabold" fontSize="2xl">
+              Einstein Personalization demo with
+            </Text>
+            <Text
+              fontSize="2xl"
+              fontWeight="extrabold"
+              bgClip="text"
+              css={{ background: "linear-gradient(to right, #66B2FF, #A366FF, #CC99FF)" }}
+            >
+              Agentforce!
+            </Text>
+          </HStack>
           <HStack>
             <Button colorPalette="purple">
               <Text fontSize="13px" fontWeight="extrabold">
