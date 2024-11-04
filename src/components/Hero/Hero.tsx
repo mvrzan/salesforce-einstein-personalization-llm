@@ -1,11 +1,11 @@
 import { Image, Flex } from "@chakra-ui/react";
 
-import heroImage from "../../assets/banner3.jpg";
+import welcomeImage from "../../assets/welcome.png";
 
 const Hero = () => {
   return (
     <Flex align="center" justify="center">
-      <Image src={heroImage} alt="hero image" height="300px" width="100%" />
+      <Image src={welcomeImage} alt="welcome banner image" height="300px" width="100%" />
     </Flex>
   );
 };
