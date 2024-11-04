@@ -6,6 +6,7 @@ import Body from "./components/Body/Body";
 // import ChatComponent from "./components/Stream/ChatComponent";
 import Footer from "./components/Footer/Footer";
 import ChatWidget from "./components/ChatWidget/ChatWidget";
+import AgentChatWidget from "./components/ChatWidget/AgentChatWidget";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
       {/* <ChatComponent /> */}
       <Footer />
       <ChatWidget />
+      <AgentChatWidget />
     </Theme>
   );
 };
