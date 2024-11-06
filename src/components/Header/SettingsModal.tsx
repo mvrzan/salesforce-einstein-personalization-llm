@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   DialogActionTrigger,
   DialogBody,
@@ -13,12 +15,30 @@ import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@chakra-ui/react";
 
+import useScript from "../../hooks/useScript";
+
 interface SettingsModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
 }
 
 const SettingsModal = ({ isModalOpen, setIsModalOpen }: SettingsModalProps) => {
+  const [scriptUrl, setScriptUrl] = useState("");
+  const configureScriptUrl = useScript();
+
+  useEffect(() => {
+    const existingScript = document.querySelector('script[src*="c360a.min.js"]');
+    if (existingScript) {
+      setScriptUrl(existingScript.getAttribute("src")!);
+      return;
+    }
+  }, []);
+
+  const saveChangesHandler = () => {
+    setIsModalOpen(false);
+    configureScriptUrl(scriptUrl);
+  };
+
   return (
     <DialogRoot
       open={isModalOpen}
@@ -35,9 +55,12 @@ const SettingsModal = ({ isModalOpen, setIsModalOpen }: SettingsModalProps) => {
         <DialogBody>
           <Field color="black" label="Data Cloud CDN Script URL">
             <Input
-              _placeholder={{ color: "gray" }}
-              placeholder="https://cdn.c360a.salesforce.com/..."
               variant="outline"
+              placeholder="https://cdn.c360a.salesforce.com/..."
+              _placeholder={{ color: "gray" }}
+              onChange={(event) => {
+                setScriptUrl(event.target.value);
+              }}
             />
           </Field>
         </DialogBody>
@@ -45,7 +68,9 @@ const SettingsModal = ({ isModalOpen, setIsModalOpen }: SettingsModalProps) => {
           <DialogActionTrigger asChild>
             <Button colorPalette="red">Cancel</Button>
           </DialogActionTrigger>
-          <Button colorPalette="purple">Save changes</Button>
+          <Button colorPalette="purple" onClick={saveChangesHandler}>
+            Save changes
+          </Button>
         </DialogFooter>
         <DialogCloseTrigger />
       </DialogContent>
