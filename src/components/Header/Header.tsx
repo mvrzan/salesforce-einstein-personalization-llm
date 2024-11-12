@@ -59,7 +59,6 @@ const Header = () => {
             color="white"
             variant="plain"
             onClick={() => {
-              console.log("click");
               setIsLoginModalOpen(true);
             }}
           >
@@ -70,7 +69,6 @@ const Header = () => {
             color="white"
             variant="plain"
             onClick={() => {
-              console.log("click settings");
               setIsSettingsModalOpen(true);
             }}
           >
