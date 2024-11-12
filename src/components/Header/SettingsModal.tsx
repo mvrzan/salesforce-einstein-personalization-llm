@@ -18,11 +18,11 @@ import { Input } from "@chakra-ui/react";
 import useScript from "../../hooks/useScript";
 
 interface SettingsModalProps {
-  isModalOpen: boolean;
-  setIsModalOpen: (isOpen: boolean) => void;
+  isSettingsModalOpen: boolean;
+  setIsSettingsModalOpen: (isOpen: boolean) => void;
 }
 
-const SettingsModal = ({ isModalOpen, setIsModalOpen }: SettingsModalProps) => {
+const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: SettingsModalProps) => {
   const [scriptUrl, setScriptUrl] = useState("");
   const configureScriptUrl = useScript();
 
@@ -35,16 +35,16 @@ const SettingsModal = ({ isModalOpen, setIsModalOpen }: SettingsModalProps) => {
   }, []);
 
   const saveChangesHandler = () => {
-    setIsModalOpen(false);
+    setIsSettingsModalOpen(false);
     configureScriptUrl(scriptUrl);
   };
 
   return (
     <DialogRoot
-      open={isModalOpen}
+      open={isSettingsModalOpen}
       placement="center"
       onOpenChange={() => {
-        setIsModalOpen(!isModalOpen);
+        setIsSettingsModalOpen(!isSettingsModalOpen);
       }}
     >
       <DialogTrigger />
