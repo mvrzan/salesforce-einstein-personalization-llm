@@ -9,13 +9,18 @@ import { HiCog6Tooth } from "react-icons/hi2";
 
 import expertsLogo from "../../assets/experts-logo.png";
 import SettingsModal from "./SettingsModal";
+import LoginModal from "./LoginModal";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   return (
     <Flex as="header" height="100px" bg="#9333ea" width="100%">
-      {isModalOpen && <SettingsModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />}
+      {isSettingsModalOpen && (
+        <SettingsModal isSettingsModalOpen={isSettingsModalOpen} setIsSettingsModalOpen={setIsSettingsModalOpen} />
+      )}
+      {isLoginModalOpen && <LoginModal isLoginModalOpen={isLoginModalOpen} setIsLoginModalOpen={setIsLoginModalOpen} />}
       <HStack gap="30px" marginBottom="10px" marginTop="10px" width="100%" marginX="22px">
         <Box>
           <LinkBox>
@@ -49,16 +54,24 @@ const Header = () => {
           <Button colorScheme="black" variant="plain" color="white">
             <FaGithub />
           </Button>
-          <Button colorScheme="black" variant="plain" color="white">
+          <Button
+            colorScheme="black"
+            color="white"
+            variant="plain"
+            onClick={() => {
+              console.log("click");
+              setIsLoginModalOpen(true);
+            }}
+          >
             <HiMiniUserCircle />
           </Button>
           <Button
             colorScheme="black"
-            variant="plain"
             color="white"
+            variant="plain"
             onClick={() => {
-              console.log("click");
-              setIsModalOpen(true);
+              console.log("click settings");
+              setIsSettingsModalOpen(true);
             }}
           >
             <HiCog6Tooth />
