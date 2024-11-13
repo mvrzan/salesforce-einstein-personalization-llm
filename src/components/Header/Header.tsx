@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Image, HStack, Spacer, Flex, Text, LinkOverlay, LinkBox } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
@@ -6,14 +6,34 @@ import { Button } from "@/components/ui/button";
 import { HiMiniUserCircle } from "react-icons/hi2";
 import { FaGithub } from "react-icons/fa";
 import { HiCog6Tooth } from "react-icons/hi2";
+import { FaSmile } from "react-icons/fa";
 
 import expertsLogo from "../../assets/experts-logo.png";
 import SettingsModal from "./SettingsModal";
 import LoginModal from "./LoginModal";
+import { readFromLocalStorage } from "../../utils/localStorageUtil";
 
 const Header = () => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const isAuthenticated = readFromLocalStorage("isAuthenticated");
+
+    if (isAuthenticated === "true") {
+      const user = JSON.parse(readFromLocalStorage("user") as string);
+
+      setUserName(user?.firstName);
+      setIsAuthenticated(true);
+    }
+
+    if (isAuthenticated === "false") {
+      setUserName("");
+      setIsAuthenticated(false);
+    }
+  }, [isLoginModalOpen]);
 
   return (
     <Flex as="header" height="100px" bg="#9333ea" width="100%">
@@ -54,7 +74,31 @@ const Header = () => {
           <Button colorScheme="black" variant="plain" color="white">
             <FaGithub />
           </Button>
-          <Button
+          {isAuthenticated ? (
+            <Button
+              colorScheme="black"
+              color="white"
+              variant="plain"
+              onClick={() => {
+                setIsLoginModalOpen(true);
+              }}
+            >
+              {userName}
+              <FaSmile />
+            </Button>
+          ) : (
+            <Button
+              colorScheme="black"
+              color="white"
+              variant="plain"
+              onClick={() => {
+                setIsLoginModalOpen(true);
+              }}
+            >
+              <HiMiniUserCircle />
+            </Button>
+          )}
+          {/* <Button
             colorScheme="black"
             color="white"
             variant="plain"
@@ -63,7 +107,7 @@ const Header = () => {
             }}
           >
             <HiMiniUserCircle />
-          </Button>
+          </Button> */}
           <Button
             colorScheme="black"
             color="white"
