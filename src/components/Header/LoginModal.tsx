@@ -117,7 +117,7 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
             <Button colorPalette="red">Cancel</Button>
           </DialogActionTrigger>
           <Button colorPalette="purple" onClick={loginHandler} disabled={isButtonDisabled}>
-            Save changes
+            Sign in!
           </Button>
         </DialogFooter>
         <DialogCloseTrigger />
