@@ -85,7 +85,6 @@ const Header = () => {
               color="white"
               variant="plain"
               onClick={() => {
-                console.log("logout", isLogoutModalOpen);
                 setIsLogoutModalOpen(true);
               }}
             >
