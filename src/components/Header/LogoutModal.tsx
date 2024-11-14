@@ -61,15 +61,17 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
       <DialogTrigger />
       <DialogContent bg="white">
         <DialogHeader>
-          <DialogTitle color="black">Sign In!</DialogTitle>
+          <DialogTitle color="black">Hello {userTitleName.current}!</DialogTitle>
         </DialogHeader>
         <DialogBody>
           <Field color="black" label="First name">
             <Input
+              autoFocus
               variant="outline"
               value={firstName}
               placeholder="First name..."
               _placeholder={{ color: "gray" }}
+              _selection={{ background: "#9333ea", color: "white" }}
               borderColor="#9333ea"
               focusRingColor="purple"
               onChange={(event) => {
@@ -83,6 +85,7 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
               value={lastName}
               placeholder="Last name..."
               _placeholder={{ color: "gray" }}
+              _selection={{ background: "#9333ea", color: "white" }}
               borderColor="#9333ea"
               focusRingColor="purple"
               onChange={(event) => {
@@ -96,6 +99,7 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
               value={email}
               placeholder="email@example.com"
               _placeholder={{ color: "gray" }}
+              _selection={{ background: "#9333ea", color: "white" }}
               borderColor="#9333ea"
               focusRingColor="purple"
               onChange={(event) => {
@@ -109,6 +113,7 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
               value={phoneNumber}
               placeholder="+123456789"
               _placeholder={{ color: "gray" }}
+              _selection={{ background: "#9333ea", color: "white" }}
               borderColor="#9333ea"
               focusRingColor="purple"
               onChange={(event) => {
