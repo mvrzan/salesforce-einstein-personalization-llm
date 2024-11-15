@@ -6,4 +6,9 @@
 
 # Salesforce Einstein Personalization with Agentforce
 
+# Table of Contents
+
+- [Salesforce Einstein Personalization with Agentforce](#salesforce-einstein-personalization-with-agentforce)
+- [Table of Contents](#table-of-contents)
+
 🚧**WORK IN PROGRESS**🚧
