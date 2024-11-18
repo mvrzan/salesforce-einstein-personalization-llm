@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
 
 import {
   DialogActionTrigger,
@@ -28,6 +29,7 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const userTitleName = useRef(firstName);
+  const { userLoggedOutHook } = useSalesforceInteractions();
 
   useEffect(() => {
     const isAuthenticated = readFromLocalStorage("isAuthenticated");
@@ -48,6 +50,7 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
     writeToLocalStorage("isAuthenticated", "false");
     deleteFromLocalStorage("user");
     setIsLogoutModalOpen(false);
+    userLoggedOutHook(firstName, lastName, email, phoneNumber);
   };
 
   return (
