@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
 
 import {
   DialogActionTrigger,
@@ -28,6 +29,7 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const { userLoggedInHook } = useSalesforceInteractions();
 
   useEffect(() => {
     if (firstName && lastName && email) {
@@ -47,6 +49,7 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
     });
 
     setIsLoginModalOpen(false);
+    userLoggedInHook(firstName, lastName, email, phoneNumber);
   };
 
   return (
