@@ -63,7 +63,7 @@ const Recommendations = () => {
                 width="100%"
                 borderRadius="8px"
               />
-              <Text fontSize="20px" fontWeight="extrabold" padding="15px" textAlign="center">
+              <Text fontSize="20px" fontWeight="extrabold" textAlign="center">
                 Smartwatch
               </Text>
               <Text fontSize="15px" fontWeight="medium" padding="15px" textAlign="center">
