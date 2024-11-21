@@ -80,7 +80,7 @@ const Recommendations = () => {
           <Box
             as="button"
             border="solid"
-            borderRadius="10px"
+            borderRadius="8px"
             borderWidth="1px"
             borderColor="black"
             height="400px"
