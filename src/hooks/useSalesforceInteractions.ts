@@ -7,7 +7,7 @@ declare const window: Window &
   };
 
 interface SalesforceInteractions {
-  startChat: () => void;
+  userChatMessage: (id: string, chatMessage: string) => void;
   viewProduct: (id: number, productName: string, productDescription: string) => void;
   userLoggedInHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   userLoggedOutHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
@@ -16,7 +16,7 @@ interface SalesforceInteractions {
 const useSalesforceInteractions = (): SalesforceInteractions => {
   const userLoggedIn = JSON.parse(readFromLocalStorage("isAuthenticated") as string);
 
-  const startChatFunction = () => {
+  const userChatMessageFunction = (id: string, chatMessage: string) => {
     if (window.SalesforceInteractions === undefined) {
       return;
     }
@@ -33,22 +33,15 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
         phoneNumber: user.phoneNumber,
       };
 
-      // TODO: Define a custom event
       // Send to Salesforce Data Cloud that a known user added a product to the cart
       window.SalesforceInteractions.sendEvent({
         interaction: {
-          name: window.SalesforceInteractions.CartInteractionName.AddToCart,
-          lineItem: {
-            catalogObjectType: "Product",
-            catalogObjectId: id.toString(),
-            quantity: 1,
-            price,
-            currency: "USD",
+          name: window.SalesforceInteractions.CatalogObjectInteractionName.ViewCatalogObject,
+          catalogObject: {
+            type: "Product",
+            id,
             attributes: {
-              title,
-              description,
-              rating: rating.rate,
-              image,
+              chatMessage,
             },
           },
         },
@@ -64,18 +57,12 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
     // Send to Salesforce Data Cloud that an unknown user added a product to the cart
     window.SalesforceInteractions.sendEvent({
       interaction: {
-        name: window.SalesforceInteractions.CartInteractionName.AddToCart,
-        lineItem: {
-          catalogObjectType: "Product",
-          catalogObjectId: id.toString(),
-          quantity: 1,
-          price: price,
-          currency: "USD",
+        name: window.SalesforceInteractions.CatalogObjectInteractionName.ViewCatalogObject,
+        catalogObject: {
+          type: "Product",
+          id,
           attributes: {
-            title,
-            description,
-            rating: rating.rate,
-            image,
+            chatMessage,
           },
         },
       },
@@ -183,7 +170,7 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
   };
 
   return {
-    startChat: startChatFunction,
+    userChatMessage: userChatMessageFunction,
     viewProduct: viewProductDetailsFunction,
     userLoggedInHook: userLoggedInFunction,
     userLoggedOutHook: userLoggedOutFunction,
