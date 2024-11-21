@@ -1,5 +1,6 @@
-import { Box, Flex, VStack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Box, Flex, VStack, Text } from "@chakra-ui/react";
+import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
 
 import type { Channel as StreamChannel, User } from "stream-chat";
 import { useCreateChatClient, Chat, Channel, MessageInput, MessageList, Thread, Window } from "stream-chat-react";
@@ -24,6 +25,7 @@ const ChatCanvas = () => {
     tokenOrProvider: userToken,
     userData: user,
   });
+  const { userChatMessage } = useSalesforceInteractions();
 
   useEffect(() => {
     if (!client) return;
@@ -35,7 +37,17 @@ const ChatCanvas = () => {
     });
 
     setChannel(channel);
-  }, [client]);
+
+    channel?.on((event) => {
+      if (!event.message?.text) return;
+
+      userChatMessage(event.message.id, event.message.text);
+    });
+
+    return () => {
+      channel.stopWatching();
+    };
+  }, [client, userChatMessage]);
 
   if (!client) return <div>Setting up client & connection...</div>;
 
