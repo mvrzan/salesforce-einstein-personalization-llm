@@ -1,13 +1,18 @@
 import { HStack, Text, Box, Image, VStack } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
 
+import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
+
 import cameraImage from "../../assets/camera.jpg";
 import headphoneImage from "../../assets/headphones.jpg";
 import droneImage from "../../assets/drone.jpg";
 import smartwatchImage from "../../assets/smart-watch.jpg";
 
 const Recommendations = () => {
-  const productClickedHandler = (productName: string) => {
+  const { viewProduct } = useSalesforceInteractions();
+
+  const productClickedHandler = (id: number, productName: string, productDescription: string) => {
+    viewProduct(id, productName, productDescription);
     return toaster.create({
       title: `${productName} info sent to Data Cloud!`,
       type: "success",
@@ -33,7 +38,9 @@ const Recommendations = () => {
             height="400px"
             width="300px"
             _hover={{ boxShadow: "0 0 10px 2px purple", borderColor: "purple" }}
-            onClick={() => productClickedHandler("Camera")}
+            onClick={() => {
+              productClickedHandler(1001, "Camera", "A really good camera");
+            }}
           >
             <VStack>
               <Image src={cameraImage} alt="camera product image" height="100%" width="100%" borderRadius="8px" />
@@ -56,7 +63,7 @@ const Recommendations = () => {
             height="400px"
             width="300px"
             _hover={{ boxShadow: "0 0 10px 2px purple", borderColor: "purple" }}
-            onClick={() => productClickedHandler("Headphones")}
+            onClick={() => productClickedHandler(1002, "Headphones", "Really good headphones")}
           >
             <VStack>
               <Image src={headphoneImage} alt="headphone product image" height="100%" width="100%" borderRadius="8px" />
@@ -79,7 +86,7 @@ const Recommendations = () => {
             height="400px"
             width="300px"
             _hover={{ boxShadow: "0 0 10px 2px purple", borderColor: "purple" }}
-            onClick={() => productClickedHandler("Drone")}
+            onClick={() => productClickedHandler(1003, "Drone", "Top of the line drone")}
           >
             <VStack>
               <Image src={droneImage} alt="drone product image" height="100%" width="100%" borderRadius="8px" />
@@ -102,7 +109,7 @@ const Recommendations = () => {
             height="400px"
             width="300px"
             _hover={{ boxShadow: "0 0 10px 2px purple", borderColor: "purple" }}
-            onClick={() => productClickedHandler("Smartwatch")}
+            onClick={() => productClickedHandler(1004, "Smartwatch", "Best smartwatch out there")}
           >
             <VStack>
               <Image
