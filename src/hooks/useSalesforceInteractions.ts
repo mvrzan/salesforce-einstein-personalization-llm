@@ -11,6 +11,7 @@ interface SalesforceInteractions {
   viewProduct: (id: number, productName: string, productDescription: string) => void;
   userLoggedInHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   userLoggedOutHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
+  personalization: (category: [string]) => void;
 }
 
 const useSalesforceInteractions = (): SalesforceInteractions => {
@@ -169,11 +170,17 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
     return;
   };
 
+  const personalization = async (category: [string]) => {
+    const response = await window.SalesforceInteractions.Personalization.fetch(category);
+    console.log("response", response);
+  };
+
   return {
     userChatMessage: userChatMessageFunction,
     viewProduct: viewProductDetailsFunction,
     userLoggedInHook: userLoggedInFunction,
     userLoggedOutHook: userLoggedOutFunction,
+    personalization,
   };
 };
 
