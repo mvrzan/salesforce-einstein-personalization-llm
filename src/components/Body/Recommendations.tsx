@@ -9,10 +9,13 @@ import droneImage from "../../assets/drone.jpg";
 import smartwatchImage from "../../assets/smart-watch.jpg";
 
 const Recommendations = () => {
-  const { viewProduct } = useSalesforceInteractions();
+  const { viewProduct, personalization } = useSalesforceInteractions();
 
   const productClickedHandler = (id: number, productName: string, productDescription: string) => {
     viewProduct(id, productName, productDescription);
+
+    personalization(["cart_recs"]);
+
     return toaster.create({
       title: `${productName} info sent to Data Cloud!`,
       type: "success",
