@@ -41,7 +41,7 @@ const ChatCanvas = () => {
     channel?.on((event) => {
       if (!event.message?.text) return;
 
-      userChatMessage(event.message.id, event.message.text);
+      userChatMessage(event.message.text);
     });
 
     return () => {
