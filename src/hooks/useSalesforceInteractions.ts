@@ -7,7 +7,7 @@ declare const window: Window &
   };
 
 interface SalesforceInteractions {
-  userChatMessage: (id: string, chatMessage: string) => void;
+  userChatMessage: (chatMessage: string) => void;
   viewProduct: (id: number, productName: string, productDescription: string) => void;
   userLoggedInHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   userLoggedOutHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
@@ -17,7 +17,7 @@ interface SalesforceInteractions {
 const useSalesforceInteractions = (): SalesforceInteractions => {
   const userLoggedIn = JSON.parse(readFromLocalStorage("isAuthenticated") as string);
 
-  const userChatMessageFunction = (id: string, chatMessage: string) => {
+  const userChatMessageFunction = (chatMessage: string) => {
     if (window.SalesforceInteractions === undefined) {
       return;
     }
@@ -37,14 +37,10 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
       // Send to Salesforce Data Cloud that a known user added a product to the cart
       window.SalesforceInteractions.sendEvent({
         interaction: {
-          name: window.SalesforceInteractions.CatalogObjectInteractionName.ViewCatalogObject,
-          catalogObject: {
-            type: "Product",
-            id,
-            attributes: {
-              chatMessage,
-            },
-          },
+          name: "chatMessage",
+          chatMessage,
+          eventType: "chatActivities",
+          category: "Engagement",
         },
         user: {
           attributes,
@@ -54,18 +50,13 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
       return;
     }
 
-    // TODO: Define a custom event
     // Send to Salesforce Data Cloud that an unknown user added a product to the cart
     window.SalesforceInteractions.sendEvent({
       interaction: {
-        name: window.SalesforceInteractions.CatalogObjectInteractionName.ViewCatalogObject,
-        catalogObject: {
-          type: "Product",
-          id,
-          attributes: {
-            chatMessage,
-          },
-        },
+        name: "chatMessage",
+        chatMessage,
+        eventType: "chatActivities",
+        category: "Engagement",
       },
     });
   };
@@ -95,8 +86,8 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
             type: "Product",
             id: id.toString(),
             attributes: {
-              productName,
               productDescription,
+              productName,
             },
           },
         },
@@ -132,16 +123,15 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
     }
 
     window.SalesforceInteractions.sendEvent({
-      user: {
-        attributes: {
-          name: "User Logged In",
-          eventType: "userLoggedIn",
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          isAnonymous: "1",
-        },
+      interaction: {
+        name: "User Logged In",
+        eventType: "userLoggedIn",
+        category: "Engagement",
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        isAnonymous: "1",
       },
     });
 
