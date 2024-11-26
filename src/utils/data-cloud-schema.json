@@ -109,14 +109,14 @@
           "isDataRequired": true
         },
         {
-          "masterLabel": "productName",
-          "developerName": "productName",
+          "masterLabel": "attributeProductName",
+          "developerName": "attributeProductName",
           "dataType": "Text",
           "isDataRequired": false
         },
         {
-          "masterLabel": "productDescription",
-          "developerName": "productDescription",
+          "masterLabel": "attributeProductDescription",
+          "developerName": "attributeProductDescription",
           "dataType": "Text",
           "isDataRequired": false
         }
@@ -283,7 +283,7 @@
     {
       "masterLabel": "User Logged In",
       "developerName": "userLoggedIn",
-      "category": "Profile",
+      "category": "Engagement",
       "externalDataTranFields": [
         {
           "masterLabel": "eventId",
@@ -357,7 +357,7 @@
     {
       "masterLabel": "User Logged Out",
       "developerName": "userLoggedOut",
-      "category": "Profile",
+      "category": "Engagement",
       "externalDataTranFields": [
         {
           "masterLabel": "eventId",
@@ -429,17 +429,10 @@
       ]
     },
     {
-      "masterLabel": "Chat message",
-      "developerName": "chatMessage",
-      "category": "Profile",
+      "masterLabel": "Chat Activities",
+      "developerName": "chatActivities",
+      "category": "Engagement",
       "externalDataTranFields": [
-        {
-          "masterLabel": "eventId",
-          "dataType": "Text",
-          "developerName": "eventId",
-          "isDataRequired": true,
-          "primaryIndexOrder": 1
-        },
         {
           "masterLabel": "category",
           "dataType": "Text",
@@ -459,6 +452,13 @@
           "isDataRequired": true
         },
         {
+          "masterLabel": "eventId",
+          "dataType": "Text",
+          "developerName": "eventId",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
           "masterLabel": "eventType",
           "dataType": "Text",
           "developerName": "eventType",
@@ -471,39 +471,9 @@
           "isDataRequired": true
         },
         {
-          "masterLabel": "email",
-          "developerName": "email",
-          "dataType": "Text",
-          "isDataRequired": false
-        },
-        {
-          "masterLabel": "firstName",
-          "developerName": "firstName",
-          "dataType": "Text",
-          "isDataRequired": false
-        },
-        {
-          "masterLabel": "isAnonymous",
-          "developerName": "isAnonymous",
-          "dataType": "Text",
-          "isDataRequired": true
-        },
-        {
-          "masterLabel": "lastName",
-          "developerName": "lastName",
-          "dataType": "Text",
-          "isDataRequired": false
-        },
-        {
-          "masterLabel": "phoneNumber",
-          "developerName": "phoneNumber",
-          "dataType": "Text",
-          "isDataRequired": false
-        },
-        {
           "masterLabel": "chatMessage",
-          "developerName": "chatMessage",
           "dataType": "Text",
+          "developerName": "chatMessage",
           "isDataRequired": false
         }
       ]
