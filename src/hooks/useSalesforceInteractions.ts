@@ -122,6 +122,15 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
       return;
     }
 
+    const attributes = {
+      eventType: "identity",
+      firstName: firstName,
+      lastName: lastName,
+      isAnonymous: "0",
+      email: email,
+      phoneNumber: phoneNumber,
+    };
+
     window.SalesforceInteractions.sendEvent({
       interaction: {
         name: "User Logged In",
@@ -131,7 +140,10 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
         lastName,
         email,
         phoneNumber,
-        isAnonymous: "1",
+        isAnonymous: "0",
+      },
+      user: {
+        attributes,
       },
     });
 
@@ -143,17 +155,28 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
       return;
     }
 
+    const attributes = {
+      eventType: "identity",
+      firstName: firstName,
+      lastName: lastName,
+      isAnonymous: "0",
+      email: email,
+      phoneNumber: phoneNumber,
+    };
+
     window.SalesforceInteractions.sendEvent({
+      interaction: {
+        name: "User Logged Out",
+        eventType: "userLoggedOut",
+        category: "Engagement",
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        isAnonymous: "0",
+      },
       user: {
-        attributes: {
-          name: "User Logged Out",
-          eventType: "userLoggedOut",
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          isAnonymous: "1",
-        },
+        attributes,
       },
     });
 
