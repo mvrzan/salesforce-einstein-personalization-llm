@@ -63,6 +63,7 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
       onOpenChange={() => {
         setIsLogoutModalOpen(!isLogoutModalOpen);
       }}
+      modal={false}
     >
       <DialogTrigger />
       <DialogContent bg="white">
