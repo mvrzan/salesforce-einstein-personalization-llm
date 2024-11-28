@@ -14,7 +14,8 @@ const Recommendations = () => {
   const productClickedHandler = (id: number, productName: string, productDescription: string) => {
     viewProduct(id, productName, productDescription);
 
-    personalization(["cart_recs"]);
+    personalization(["bannerEP1"]);
+    personalization(["EP_AI_BANNER"]);
 
     return toaster.create({
       title: `${productName} info sent to Data Cloud!`,
