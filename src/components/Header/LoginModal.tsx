@@ -64,6 +64,7 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
       onOpenChange={() => {
         setIsLoginModalOpen(!isLoginModalOpen);
       }}
+      modal={false}
     >
       <DialogTrigger />
       <DialogContent bg="white">

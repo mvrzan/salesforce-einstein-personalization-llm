@@ -46,6 +46,7 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
       onOpenChange={() => {
         setIsSettingsModalOpen(!isSettingsModalOpen);
       }}
+      modal={false}
     >
       <DialogTrigger />
       <DialogContent bg="white">
