@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
+import useBearStore from "@/hooks/useBearStore";
 
 import {
   DialogActionTrigger,
@@ -29,7 +30,8 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const { userLoggedInHook } = useSalesforceInteractions();
+  const { userLoggedInHook, personalization } = useSalesforceInteractions();
+  const setBannerImage = useBearStore((state) => state.setBannerImage);
 
   useEffect(() => {
     if (firstName && lastName && email) {
@@ -39,7 +41,7 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
     }
   }, [firstName, lastName, email]);
 
-  const loginHandler = () => {
+  const loginHandler = async () => {
     writeToLocalStorage("isAuthenticated", "true");
     writeToLocalStorage("user", {
       firstName,
@@ -50,6 +52,9 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
 
     setIsLoginModalOpen(false);
     userLoggedInHook(firstName, lastName, email, phoneNumber);
+    personalization(["EP_AI_BANNER"]);
+    const bannerImage = await personalization(["bannerEP1"]);
+    setBannerImage(bannerImage);
   };
 
   return (

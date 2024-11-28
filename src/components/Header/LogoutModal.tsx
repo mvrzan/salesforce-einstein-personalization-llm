@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
+import useBearStore from "@/hooks/useBearStore";
 
 import {
   DialogActionTrigger,
@@ -30,6 +31,7 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
   const [phoneNumber, setPhoneNumber] = useState("");
   const userTitleName = useRef(firstName);
   const { userLoggedOutHook } = useSalesforceInteractions();
+  const resetBannerImage = useBearStore((state) => state.resetBannerImage);
 
   useEffect(() => {
     const isAuthenticated = readFromLocalStorage("isAuthenticated");
@@ -51,6 +53,7 @@ const LogoutModal = ({ isLogoutModalOpen, setIsLogoutModalOpen }: LogoutModalPro
     deleteFromLocalStorage("user");
     setIsLogoutModalOpen(false);
     userLoggedOutHook(firstName, lastName, email, phoneNumber);
+    resetBannerImage();
   };
 
   return (
