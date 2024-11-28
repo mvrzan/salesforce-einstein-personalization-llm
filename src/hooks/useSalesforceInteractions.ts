@@ -11,7 +11,7 @@ interface SalesforceInteractions {
   viewProduct: (id: number, productName: string, productDescription: string) => void;
   userLoggedInHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   userLoggedOutHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
-  personalization: (category: [string]) => void;
+  personalization: (category: [string]) => Promise<string>;
 }
 
 const useSalesforceInteractions = (): SalesforceInteractions => {
@@ -184,8 +184,16 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
   };
 
   const personalization = async (category: [string]) => {
-    const response = await window.SalesforceInteractions.Personalization.fetch(category);
-    console.log("response", response);
+    try {
+      const response = await window.SalesforceInteractions.Personalization.fetch(category);
+      const bannerImage = response.personalizations[0]?.attributes.imageURL;
+
+      console.log("response", response);
+      return bannerImage;
+    } catch (error) {
+      console.error(error);
+      return "";
+    }
   };
 
   return {
