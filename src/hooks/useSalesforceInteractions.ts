@@ -11,7 +11,7 @@ interface SalesforceInteractions {
   viewProduct: (id: number, productName: string, productDescription: string) => void;
   userLoggedInHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   userLoggedOutHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
-  personalization: (category: [string]) => Promise<string>;
+  personalization: (category: [string], anchorId?: string) => Promise<string>;
 }
 
 const useSalesforceInteractions = (): SalesforceInteractions => {
@@ -183,8 +183,19 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
     return;
   };
 
-  const personalization = async (category: [string]) => {
+  const personalization = async (category: [string], anchorId?: string) => {
     try {
+      if (anchorId) {
+        const response = await window.SalesforceInteractions.Personalization.fetch(category, {
+          anchorId,
+        });
+
+        const recommendedItems = response.personalizations[0]?.data;
+        console.log("recommendedItems", recommendedItems);
+
+        console.log("response", response);
+        return "stuff";
+      }
       const response = await window.SalesforceInteractions.Personalization.fetch(category);
       const bannerImage = response.personalizations[0]?.attributes.imageURL;
 
