@@ -52,7 +52,7 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
 
     setIsLoginModalOpen(false);
     userLoggedInHook(firstName, lastName, email, phoneNumber);
-    personalization(["EP_AI_BANNER"]);
+
     const bannerImage = await personalization(["bannerEP1"]);
     setBannerImage(bannerImage);
   };
