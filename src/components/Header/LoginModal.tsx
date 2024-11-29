@@ -30,7 +30,7 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const { userLoggedInHook, personalization } = useSalesforceInteractions();
+  const { userLoggedInHook, personalizationBanner } = useSalesforceInteractions();
   const setBannerImage = useBearStore((state) => state.setBannerImage);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const LoginModal = ({ isLoginModalOpen, setIsLoginModalOpen }: LoginModalProps) 
     setIsLoginModalOpen(false);
     userLoggedInHook(firstName, lastName, email, phoneNumber);
 
-    const bannerImage = await personalization(["bannerEP1"]);
+    const bannerImage = await personalizationBanner(["bannerEP1"]);
     setBannerImage(bannerImage);
   };
 
