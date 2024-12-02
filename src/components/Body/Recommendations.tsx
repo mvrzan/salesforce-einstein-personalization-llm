@@ -1,8 +1,12 @@
-import { HStack, Text, Box, Image, VStack } from "@chakra-ui/react";
+import { useState } from "react";
+
+import { HStack, Text, Box, Image, VStack, Spacer, Center } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
+import { Button } from "@/components/ui/button";
 
+import Product from "./Product";
 import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
-
+import { ProductType } from "@/utils/types";
 import cameraImage from "../../assets/camera.jpg";
 import headphoneImage from "../../assets/headphones.jpg";
 import droneImage from "../../assets/drone.jpg";
@@ -10,11 +14,15 @@ import smartwatchImage from "../../assets/smart-watch.jpg";
 
 const Recommendations = () => {
   const { viewProduct, personalizationProductRecommendations } = useSalesforceInteractions();
+  const [recommendedProducts, setRecommendedProducts] = useState<ProductType[]>([]);
+  const [resetRecommendationsVisible, setResetRecommendationsVisible] = useState(false);
 
-  const productClickedHandler = (id: number, productName: string, productDescription: string) => {
+  const productClickedHandler = async (id: number, productName: string, productDescription: string) => {
     viewProduct(id, productName, productDescription);
 
-    personalizationProductRecommendations(["recsEP1"], id.toString());
+    const products = await personalizationProductRecommendations(["recsEP1"], id.toString());
+    setRecommendedProducts(products);
+    setResetRecommendationsVisible(true);
 
     return toaster.create({
       title: `${productName} info sent to Data Cloud!`,
@@ -22,14 +30,25 @@ const Recommendations = () => {
     });
   };
 
+  const resetRecommendations = () => {
+    setResetRecommendationsVisible(false);
+    setRecommendedProducts([]);
+  };
+
   return (
     <>
       <Toaster />
-      <VStack align="start" paddingLeft="100px" paddingBottom="40px">
+      <HStack align="start" paddingX="100px" paddingBottom="40px">
         <Text fontSize="3xl" fontWeight="extrabold" color="#9333ea" textAlign="start">
           Product recommendations
         </Text>
-      </VStack>
+        <Spacer />
+        {resetRecommendationsVisible && (
+          <Button colorPalette="purple" onClick={resetRecommendations}>
+            Reset recommendations
+          </Button>
+        )}
+      </HStack>
       <VStack marginBottom="40px">
         <HStack gap="10">
           <Box
@@ -133,6 +152,20 @@ const Recommendations = () => {
           </Box>
         </HStack>
       </VStack>
+      <Center>
+        <HStack gap="10">
+          {recommendedProducts?.map((product) => {
+            return (
+              <Product
+                key={product.ssot__Id__c}
+                image={product.ImageURL__c}
+                productName={product.ssot__Name__c}
+                description="This is an example of Einstein Personalization. This item was recommended based on the interest (click) on the above product!"
+              />
+            );
+          })}
+        </HStack>
+      </Center>
     </>
   );
 };
