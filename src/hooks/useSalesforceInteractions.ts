@@ -1,4 +1,5 @@
 import { readFromLocalStorage } from "../utils/localStorageUtil";
+import { ProductType } from "@/utils/types";
 
 declare const window: Window &
   typeof globalThis & {
@@ -12,7 +13,7 @@ interface SalesforceInteractions {
   userLoggedInHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   userLoggedOutHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   personalizationBanner: (category: [string]) => Promise<string>;
-  personalizationProductRecommendations: (category: [string], anchorId: string) => Promise<string>;
+  personalizationProductRecommendations: (category: [string], anchorId: string) => Promise<ProductType[]>;
 }
 
 const useSalesforceInteractions = (): SalesforceInteractions => {
