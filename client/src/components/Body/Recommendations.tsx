@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useBearStore from "@/hooks/useBearStore";
 
 import { HStack, Text, Box, Image, VStack, Spacer, Center } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
@@ -16,6 +17,8 @@ const Recommendations = () => {
   const { viewProduct, personalizationProductRecommendations } = useSalesforceInteractions();
   const [recommendedProducts, setRecommendedProducts] = useState<ProductType[]>([]);
   const [resetRecommendationsVisible, setResetRecommendationsVisible] = useState(false);
+  const epRecommendedProducts = useBearStore((state) => state.epRecommendedProducts);
+  const updateRecommendedProducts = useBearStore((state) => state.updateRecommendedProducts);
 
   const productClickedHandler = async (id: number, productName: string, productDescription: string) => {
     viewProduct(id, productName, productDescription);
@@ -33,6 +36,7 @@ const Recommendations = () => {
   const resetRecommendations = () => {
     setResetRecommendationsVisible(false);
     setRecommendedProducts([]);
+    updateRecommendedProducts([]);
   };
 
   return (
@@ -155,6 +159,16 @@ const Recommendations = () => {
       <Center>
         <HStack gap="10">
           {recommendedProducts?.map((product) => {
+            return (
+              <Product
+                key={product.ssot__Id__c}
+                image={product.ImageURL__c}
+                productName={product.ssot__Name__c}
+                description="This is an example of Einstein Personalization. This item was recommended based on the interest (click) on the above product!"
+              />
+            );
+          })}
+          {epRecommendedProducts?.map((product) => {
             return (
               <Product
                 key={product.ssot__Id__c}
