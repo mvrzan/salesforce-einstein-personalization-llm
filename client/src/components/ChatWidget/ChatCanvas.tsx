@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Box, Flex, VStack, Text } from "@chakra-ui/react";
 import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
+import useBearStore from "@/hooks/useBearStore";
 
 import type { Channel as StreamChannel, User } from "stream-chat";
 import { useCreateChatClient, Chat, Channel, MessageInput, MessageList, Thread, Window } from "stream-chat-react";
 
 import "stream-chat-react/dist/css/v2/index.css";
+import notifyAi from "../../utils/notifyAi";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const userId = import.meta.env.VITE_USER_ID;
@@ -25,7 +27,8 @@ const ChatCanvas = () => {
     tokenOrProvider: userToken,
     userData: user,
   });
-  const { userChatMessage } = useSalesforceInteractions();
+  const { userChatMessage, personalizationProductRecommendations } = useSalesforceInteractions();
+  const updateRecommendedProducts = useBearStore((state) => state.updateRecommendedProducts);
 
   useEffect(() => {
     if (!client) return;
@@ -41,7 +44,18 @@ const ChatCanvas = () => {
     channel?.on((event) => {
       if (!event.message?.text) return;
 
+      const deviceId = window?.SalesforceInteractions.getAnonymousId();
       userChatMessage(event.message.text);
+      notifyAi(deviceId);
+
+      setTimeout(() => {
+        const getProducts = async () => {
+          const products = await personalizationProductRecommendations(["recsEP1"]);
+          updateRecommendedProducts(products);
+        };
+
+        getProducts();
+      }, 5000);
     });
 
     return () => {
