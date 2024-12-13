@@ -13,7 +13,7 @@ interface SalesforceInteractions {
   userLoggedInHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   userLoggedOutHook: (firstName: string, lastName: string, email: string, phoneNumber: string) => void;
   personalizationBanner: (category: [string]) => Promise<string>;
-  personalizationProductRecommendations: (category: [string], anchorId: string) => Promise<ProductType[]>;
+  personalizationProductRecommendations: (category: [string], anchorId?: string) => Promise<ProductType[]>;
 }
 
 const useSalesforceInteractions = (): SalesforceInteractions => {
@@ -197,11 +197,10 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
     }
   };
 
-  const personalizationProductRecommendations = async (category: [string], anchorId: string) => {
+  const personalizationProductRecommendations = async (category: [string], anchorId?: string) => {
     try {
-      const response = await window.SalesforceInteractions.Personalization.fetch(category, {
-        anchorId,
-      });
+      const options = anchorId ? { anchorId } : undefined;
+      const response = await window.SalesforceInteractions.Personalization.fetch(category, options);
 
       const recommendedItems = response.personalizations[0]?.data;
       console.log("recommendedItems", recommendedItems);
@@ -209,7 +208,7 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
       return recommendedItems;
     } catch (error) {
       console.error(error);
-      return "";
+      return [];
     }
   };
 
