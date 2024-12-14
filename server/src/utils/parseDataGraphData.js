@@ -5,9 +5,12 @@ export const parseDataGraph = (dataGraph) => {
       .replace(/&amp;/g, "&")
       .replace(/&lt;/g, "<")
       .replace(/&gt;/g, ">")
-      .replace(/&#39;/g, "'");
+      .replace(/&#39;/g, "'")
+      .replace(/&#92;/g, "\\");
 
   const decodedJson = decodeJson(dataGraph.data[0].json_blob__c);
+
+  console.log("decodedJson", decodedJson);
   const parsedJson = JSON.parse(decodedJson);
   const individual = parsedJson.UnifiedLinkssotIndividualMcp__dlm[0].ssot__Individual__dlm;
   const chatMessages = individual[0].chatActivities__dlm;
