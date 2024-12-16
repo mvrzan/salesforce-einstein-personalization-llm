@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, Flex, VStack, Text } from "@chakra-ui/react";
+import { Toaster, toaster } from "@/components/ui/toaster";
 import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
 import useBearStore from "@/hooks/useBearStore";
 
@@ -29,39 +30,49 @@ const ChatCanvas = () => {
   });
   const { userChatMessage, personalizationProductRecommendations } = useSalesforceInteractions();
   const updateRecommendedProducts = useBearStore((state) => state.updateRecommendedProducts);
+  const setTheme = useBearStore((state) => state.setTheme);
 
   useEffect(() => {
-    if (!client) return;
-
-    const channel = client.channel("messaging", "Einstein_Personalization", {
+    const chatChannel = client?.channel("messaging", "Einstein_Personalization", {
       image: "https://getstream.io/random_png/?name=react",
       name: "Service support",
       members: [userId],
     });
 
-    setChannel(channel);
+    setChannel(chatChannel);
 
-    channel?.on((event) => {
+    const handleChatEvent = (event: { message?: { text?: string } }) => {
       if (!event.message?.text) return;
 
       const deviceId = window?.SalesforceInteractions.getAnonymousId();
       userChatMessage(event.message.text);
       notifyAi(deviceId);
 
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         const getProducts = async () => {
           const products = await personalizationProductRecommendations(["recsEP1"]);
           updateRecommendedProducts(products);
+          const productCategory = products[0].ssot__PrimaryProductCategory__c;
+          setTheme(productCategory);
+          toaster.create({
+            duration: 5000,
+            title: `Personalization for ${productCategory} has been set!`,
+            type: "success",
+          });
         };
 
         getProducts();
-      }, 5000);
-    });
+      }, 4000);
+
+      return () => clearTimeout(timeoutId);
+    };
+
+    chatChannel?.on("message.new", handleChatEvent);
 
     return () => {
-      channel.stopWatching();
+      chatChannel?.off("message.new", handleChatEvent);
     };
-  }, [client, userChatMessage]);
+  }, [client, personalizationProductRecommendations, setTheme, updateRecommendedProducts, userChatMessage]);
 
   if (!client) return <div>Setting up client & connection...</div>;
 
@@ -77,6 +88,7 @@ const ChatCanvas = () => {
       zIndex="1000"
       boxShadow="lg"
     >
+      <Toaster />
       <Flex direction="column" height="100%">
         <Box bg="#9333ea" color="white" p="4" borderTopRadius="8px">
           <Text fontSize="lg" fontWeight="bold">
