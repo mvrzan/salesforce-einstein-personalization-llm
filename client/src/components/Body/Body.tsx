@@ -5,7 +5,7 @@ import Recommendations from "./Recommendations";
 const Body = () => {
   return (
     <>
-      <Flex align="start" justify="center" paddingX="100px" bg="white" height="25vh" marginTop="20px">
+      <Flex align="start" justify="center" paddingX="100px" height="25vh" marginTop="20px">
         <VStack>
           <Text
             fontSize="5xl"
