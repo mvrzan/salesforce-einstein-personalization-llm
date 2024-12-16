@@ -26,9 +26,7 @@ const AgentChatCanvas = () => {
   });
 
   useEffect(() => {
-    if (!client) return;
-
-    const channel = client.channel("messaging", "Einstein_Personalization", {
+    const channel = client?.channel("messaging", "Einstein_Personalization", {
       image: "https://getstream.io/random_png/?name=react",
       name: "Service support",
       members: [userId],
