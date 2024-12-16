@@ -7,10 +7,10 @@ const Footer = () => {
   return (
     <Box>
       <Separator />
-      <Flex align="center" justify="center" bg="white" height="100%" paddingY="50px">
+      <Flex align="center" justify="center" height="100%" paddingY="50px">
         <VStack>
           <HStack>
-            <Text color="black" fontWeight="extrabold" fontSize="2xl">
+            <Text fontWeight="extrabold" fontSize="2xl">
               Einstein Personalization demo with
             </Text>
             <Text
@@ -40,7 +40,7 @@ const Footer = () => {
             </Button>
           </HStack>
           <Image src={expertsLogo} alt="header image" height="60px" width="75px" />
-          <Text color="black" fontWeight="lighter" fontSize="10px">
+          <Text fontWeight="lighter" fontSize="10px">
             © 2024 Experts Team. All rights reserved.
           </Text>
         </VStack>
