@@ -201,9 +201,7 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
     try {
       const options = anchorId ? { anchorId } : undefined;
       const response = await window.SalesforceInteractions.Personalization.fetch(category, options);
-
       const recommendedItems = response.personalizations[0]?.data;
-      console.log("recommendedItems", recommendedItems);
 
       return recommendedItems;
     } catch (error) {
