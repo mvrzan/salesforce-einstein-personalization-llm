@@ -60,7 +60,6 @@ const Recommendations = () => {
             border="solid"
             borderRadius="8px"
             borderWidth="1px"
-            borderColor="black"
             height="400px"
             width="300px"
             _hover={{ boxShadow: "0 0 10px 2px purple", borderColor: "purple" }}
@@ -85,7 +84,6 @@ const Recommendations = () => {
             border="solid"
             borderRadius="8px"
             borderWidth="1px"
-            borderColor="black"
             height="400px"
             width="300px"
             _hover={{ boxShadow: "0 0 10px 2px purple", borderColor: "purple" }}
@@ -108,7 +106,6 @@ const Recommendations = () => {
             border="solid"
             borderRadius="8px"
             borderWidth="1px"
-            borderColor="black"
             height="400px"
             width="300px"
             _hover={{ boxShadow: "0 0 10px 2px purple", borderColor: "purple" }}
@@ -131,7 +128,6 @@ const Recommendations = () => {
             border="solid"
             borderRadius="8px"
             borderWidth="1px"
-            borderColor="black"
             height="400px"
             width="300px"
             _hover={{ boxShadow: "0 0 10px 2px purple", borderColor: "purple" }}
