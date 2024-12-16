@@ -11,9 +11,12 @@ import Body from "./components/Body/Body";
 import Footer from "./components/Footer/Footer";
 import ChatWidget from "./components/ChatWidget/ChatWidget";
 import AgentChatWidget from "./components/ChatWidget/AgentChatWidget";
+import useBearStore from "./hooks/useBearStore";
 
 const App = () => {
   const configureScriptUrl = useScript();
+  const theme = useBearStore((state) => (state.theme === "dark" || state.theme === "light" ? state.theme : "light"));
+
   useEffect(() => {
     const existingScript = document.querySelector('script[src*="c360a.min.js"]');
     if (existingScript) {
@@ -29,7 +32,7 @@ const App = () => {
   }, []);
 
   return (
-    <Theme appearance="light">
+    <Theme appearance={theme}>
       <Header />
       <Hero />
       <Body />
