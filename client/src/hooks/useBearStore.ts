@@ -20,28 +20,15 @@ const useBearStore = create<BearStore>((set) => ({
   updateRecommendedProducts: (products: ProductType[]) => set({ epRecommendedProducts: products }),
 
   theme: "",
-  setTheme: (product: string) =>
-    set((state) => {
-      if (state.theme === product) {
-        return { theme: product };
-      }
-
-      if (product === "Camera") {
-        return { theme: "dark" };
-      }
-
-      if (product === "Headphones") {
-        return { theme: "yellow" };
-      }
-      if (product === "Drone") {
-        return { theme: "teal" };
-      }
-      if (product === "Smartwatch") {
-        return { theme: "blue" };
-      }
-
-      return { theme: "" };
-    }),
+  setTheme: (product: string) => {
+    const themes: { [key: string]: string } = {
+      Camera: "dark",
+      Headphones: "teal",
+      Drone: "gray",
+      Smartwatch: "green",
+    };
+    set({ theme: themes[product] || "" });
+  },
 }));
 
 export default useBearStore;
