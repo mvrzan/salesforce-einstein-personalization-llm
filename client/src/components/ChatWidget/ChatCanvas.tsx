@@ -62,7 +62,7 @@ const ChatCanvas = () => {
         };
 
         getProducts();
-      }, 4000);
+      }, 5000);
 
       return () => clearTimeout(timeoutId);
     };
