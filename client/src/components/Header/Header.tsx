@@ -59,29 +59,28 @@ const Header = () => {
             </LinkOverlay>
           </LinkBox>
         </Box>
-        <Button colorScheme="black" variant="plain">
+        <Button variant="plain">
           <Text fontSize="15px" fontWeight="extrabold" color="white">
             Home
           </Text>
         </Button>
-        <Button colorScheme="black" variant="plain">
+        <Button variant="plain">
           <Text fontSize="15px" fontWeight="extrabold" color="white">
             Customer service
           </Text>
         </Button>
-        <Button colorScheme="black" variant="plain">
+        <Button variant="plain">
           <Text fontSize="15px" fontWeight="extrabold" color="white">
             About
           </Text>
         </Button>
         <Spacer />
         <HStack gap="2px">
-          <Button colorScheme="black" variant="plain" color="white">
+          <Button variant="plain" color="white">
             <FaGithub />
           </Button>
           {isAuthenticated ? (
             <Button
-              colorScheme="black"
               color="white"
               variant="plain"
               onClick={() => {
@@ -93,7 +92,6 @@ const Header = () => {
             </Button>
           ) : (
             <Button
-              colorScheme="black"
               color="white"
               variant="plain"
               onClick={() => {
@@ -104,7 +102,6 @@ const Header = () => {
             </Button>
           )}
           <Button
-            colorScheme="black"
             color="white"
             variant="plain"
             onClick={() => {
