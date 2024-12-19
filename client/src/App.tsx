@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useScript from "./hooks/useScript";
+import useAgentforceScript from "./hooks/useAgentforceScript";
 
 import { readFromLocalStorage } from "./utils/localStorageUtil";
 
@@ -15,19 +16,37 @@ import useBearStore from "./hooks/useBearStore";
 
 const App = () => {
   const configureScriptUrl = useScript();
+  const configureAgentforceScriptUrl = useAgentforceScript();
+
   const theme = useBearStore((state) => (state.theme === "dark" || state.theme === "light" ? state.theme : "light"));
 
   useEffect(() => {
     const existingScript = document.querySelector('script[src*="c360a.min.js"]');
-    if (existingScript) {
-      return;
+    if (!existingScript) {
+      const scriptUrl = readFromLocalStorage("scriptUrl");
+
+      if (scriptUrl) {
+        configureScriptUrl(scriptUrl);
+      }
     }
 
-    const scriptUrl = readFromLocalStorage("scriptUrl");
+    const existingAgentforceScript = document.querySelector('script[src*="assets/js/bootstrap.min.js"]');
 
-    if (scriptUrl) {
-      configureScriptUrl(scriptUrl);
+    if (!existingAgentforceScript) {
+      const agentforceConfig = readFromLocalStorage("agentforceConfig");
+
+      if (agentforceConfig) {
+        const agentforceScriptUrl = JSON.parse(agentforceConfig);
+        configureAgentforceScriptUrl(
+          agentforceScriptUrl?.orgId,
+          agentforceScriptUrl?.scriptUrl,
+          agentforceScriptUrl?.instanceUrl,
+          agentforceScriptUrl?.embeddingUrl,
+          agentforceScriptUrl?.embeddingApiName
+        );
+      }
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
