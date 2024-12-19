@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import useBearStore from "@/hooks/useBearStore";
+import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
+
 import { Box, Flex, VStack, Text } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
-import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
-import useBearStore from "@/hooks/useBearStore";
 
 import type { Channel as StreamChannel, User } from "stream-chat";
 import { useCreateChatClient, Chat, Channel, MessageInput, MessageList, Thread, Window } from "stream-chat-react";
