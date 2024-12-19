@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
+import useScript from "../../hooks/useScript";
+import useAgentforceScript from "@/hooks/useAgentforceScript";
+import { readFromLocalStorage } from "@/utils/localStorageUtil";
 
 import {
   DialogActionTrigger,
-  DialogBody,
   DialogCloseTrigger,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogRoot,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { Input } from "@chakra-ui/react";
+import { Input, Tabs } from "@chakra-ui/react";
+import { Switch } from "@/components/ui/switch";
 
-import useScript from "../../hooks/useScript";
+import { BsChatRightDots } from "react-icons/bs";
+import { PiRobotLight } from "react-icons/pi";
+import { LiaSalesforce } from "react-icons/lia";
 
 interface SettingsModalProps {
   isSettingsModalOpen: boolean;
@@ -24,19 +28,51 @@ interface SettingsModalProps {
 
 const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: SettingsModalProps) => {
   const [scriptUrl, setScriptUrl] = useState("");
+
+  const [agentforceOrgId, setAgentforceOrgId] = useState("");
+  const [agentforceJavascript, setAgentforceJavascript] = useState("");
+  const [agentforceSalesforceInstanceUrl, setAgentforceSalesforceInstanceUrl] = useState("");
+  const [agentforceEmbeddingUrl, setAgentforceEmbeddingUrl] = useState("");
+  const [agentforceEmbeddingApiName, setAgentforceEmbeddingApiName] = useState("");
+
   const configureScriptUrl = useScript();
+  const configureAgentforceScriptUrl = useAgentforceScript();
 
   useEffect(() => {
     const existingScript = document.querySelector('script[src*="c360a.min.js"]');
+
     if (existingScript) {
       setScriptUrl(existingScript.getAttribute("src")!);
-      return;
+    }
+
+    const existingAgentforceScript = document.querySelector('script[src*="assets/js/bootstrap.min.js"]');
+
+    if (existingAgentforceScript) {
+      const agentforceConfig = readFromLocalStorage("agentforceConfig");
+
+      if (!agentforceConfig) return;
+
+      const parsedAgentforceConfig = JSON.parse(agentforceConfig);
+
+      setAgentforceOrgId(parsedAgentforceConfig.orgId);
+      setAgentforceJavascript(parsedAgentforceConfig.scriptUrl);
+      setAgentforceSalesforceInstanceUrl(parsedAgentforceConfig.instanceUrl);
+      setAgentforceEmbeddingUrl(parsedAgentforceConfig.embeddingUrl);
+      setAgentforceEmbeddingApiName(parsedAgentforceConfig.embeddingApiName);
     }
   }, []);
 
   const saveChangesHandler = () => {
     setIsSettingsModalOpen(false);
     configureScriptUrl(scriptUrl);
+
+    configureAgentforceScriptUrl(
+      agentforceOrgId,
+      agentforceJavascript,
+      agentforceSalesforceInstanceUrl,
+      agentforceEmbeddingUrl,
+      agentforceEmbeddingApiName
+    );
   };
 
   return (
@@ -48,23 +84,94 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
       }}
       modal={false}
     >
-      <DialogTrigger />
       <DialogContent bg="white">
         <DialogHeader>
-          <DialogTitle color="black">Web SDK Settings</DialogTitle>
+          <Tabs.Root defaultValue="data cloud">
+            <Tabs.List>
+              <Tabs.Trigger value="data cloud" color="black">
+                <LiaSalesforce />
+                Data Cloud
+              </Tabs.Trigger>
+              <Tabs.Trigger value="external chat" color="black">
+                <BsChatRightDots />
+                External Chat
+              </Tabs.Trigger>
+              <Tabs.Trigger value="agentforce" color="black">
+                <PiRobotLight />
+                Agentforce
+              </Tabs.Trigger>
+            </Tabs.List>
+            <Tabs.Content value="data cloud" color="black">
+              <DialogTitle marginBottom="40px">Data Cloud Web SDK Settings</DialogTitle>
+              <Field label="Data Cloud CDN Script URL">
+                <Input
+                  variant="outline"
+                  placeholder="https://cdn.c360a.salesforce.com/..."
+                  _placeholder={{ color: "gray" }}
+                  onChange={(event) => {
+                    setScriptUrl(event.target.value);
+                  }}
+                />
+              </Field>
+            </Tabs.Content>
+            <Tabs.Content value="external chat" color="black">
+              <DialogTitle marginBottom="40px">3rd party chat service</DialogTitle>
+              <Switch colorPalette="purple">Enable 3rd party chat</Switch>
+            </Tabs.Content>
+            <Tabs.Content value="agentforce" color="black">
+              <DialogTitle marginBottom="40px">Agentforce initialization settings</DialogTitle>
+              <Field label="Salesforce Organization ID">
+                <Input
+                  variant="outline"
+                  marginBottom="40px"
+                  placeholder="Example: 00DKr00020AYCvN"
+                  onChange={(event) => {
+                    setAgentforceOrgId(event.target.value);
+                  }}
+                />
+              </Field>
+              <Field label="Agentforce Javascript URL">
+                <Input
+                  variant="outline"
+                  marginBottom="40px"
+                  placeholder="URL ending in: /assets/js/bootstrap.min.js"
+                  onChange={(event) => {
+                    setAgentforceJavascript(event.target.value);
+                  }}
+                />
+              </Field>
+              <Field label="Agentforce Salesforce Instance URL">
+                <Input
+                  variant="outline"
+                  marginBottom="40px"
+                  placeholder="URL ending in: salesforce-scrt.com"
+                  onChange={(event) => {
+                    setAgentforceSalesforceInstanceUrl(event.target.value);
+                  }}
+                />
+              </Field>
+              <Field label="Embedded Service Deployment URL">
+                <Input
+                  variant="outline"
+                  marginBottom="40px"
+                  placeholder="URL ending in: /ESWSDOEPAI21734550912345"
+                  onChange={(event) => {
+                    setAgentforceEmbeddingUrl(event.target.value);
+                  }}
+                />
+              </Field>
+              <Field label="Embedded Service API Name">
+                <Input
+                  variant="outline"
+                  placeholder="Example: SDO_Demo"
+                  onChange={(event) => {
+                    setAgentforceEmbeddingApiName(event.target.value);
+                  }}
+                />
+              </Field>
+            </Tabs.Content>
+          </Tabs.Root>
         </DialogHeader>
-        <DialogBody>
-          <Field color="black" label="Data Cloud CDN Script URL">
-            <Input
-              variant="outline"
-              placeholder="https://cdn.c360a.salesforce.com/..."
-              _placeholder={{ color: "gray" }}
-              onChange={(event) => {
-                setScriptUrl(event.target.value);
-              }}
-            />
-          </Field>
-        </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
             <Button colorPalette="red">Cancel</Button>
