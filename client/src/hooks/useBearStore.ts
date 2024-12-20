@@ -9,6 +9,8 @@ type BearStore = {
   updateRecommendedProducts: (products: ProductType[]) => void;
   theme: string;
   setTheme: (product: string) => void;
+  chatSelector: string;
+  setChatSelector: (switchState: boolean) => void;
 };
 
 const useBearStore = create<BearStore>((set) => ({
@@ -28,6 +30,11 @@ const useBearStore = create<BearStore>((set) => ({
       Smartwatch: "green",
     };
     set({ theme: themes[product] || "" });
+  },
+
+  chatSelector: "external",
+  setChatSelector: (switchState: boolean) => {
+    set({ chatSelector: switchState ? "agentforce" : "external" });
   },
 }));
 
