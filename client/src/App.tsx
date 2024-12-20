@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import useScript from "./hooks/useScript";
+import useBearStore from "./hooks/useBearStore";
 import useAgentforceScript from "./hooks/useAgentforceScript";
 
-import { readFromLocalStorage } from "./utils/localStorageUtil";
-
 import { Theme } from "@chakra-ui/react";
+import { readFromLocalStorage } from "./utils/localStorageUtil";
 
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
@@ -12,13 +12,14 @@ import Body from "./components/Body/Body";
 import Footer from "./components/Footer/Footer";
 import ChatWidget from "./components/ChatWidget/ChatWidget";
 import AgentChatWidget from "./components/ChatWidget/AgentChatWidget";
-import useBearStore from "./hooks/useBearStore";
 
 const App = () => {
   const configureScriptUrl = useScript();
   const configureAgentforceScriptUrl = useAgentforceScript();
 
   const theme = useBearStore((state) => (state.theme === "dark" || state.theme === "light" ? state.theme : "light"));
+  const chatSelector = useBearStore((state) => state.chatSelector);
+  const setChatSelector = useBearStore((state) => state.setChatSelector);
 
   useEffect(() => {
     const existingScript = document.querySelector('script[src*="c360a.min.js"]');
@@ -44,6 +45,8 @@ const App = () => {
           agentforceScriptUrl?.embeddingUrl,
           agentforceScriptUrl?.embeddingApiName
         );
+
+        setChatSelector(true);
       }
     }
 
@@ -56,7 +59,7 @@ const App = () => {
       <Hero />
       <Body />
       <Footer />
-      <ChatWidget />
+      {chatSelector === "external" && <ChatWidget />}
       <AgentChatWidget />
     </Theme>
   );
