@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useScript from "../../hooks/useScript";
+import useBearStore from "@/hooks/useBearStore";
 import useAgentforceScript from "@/hooks/useAgentforceScript";
 import { readFromLocalStorage } from "@/utils/localStorageUtil";
 
@@ -14,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
-import { Input, Tabs } from "@chakra-ui/react";
+import { HStack, Input, Tabs, Text } from "@chakra-ui/react";
 import { Switch } from "@/components/ui/switch";
 
 import { BsChatRightDots } from "react-icons/bs";
@@ -28,15 +29,16 @@ interface SettingsModalProps {
 
 const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: SettingsModalProps) => {
   const [scriptUrl, setScriptUrl] = useState("");
-
   const [agentforceOrgId, setAgentforceOrgId] = useState("");
   const [agentforceJavascript, setAgentforceJavascript] = useState("");
   const [agentforceSalesforceInstanceUrl, setAgentforceSalesforceInstanceUrl] = useState("");
   const [agentforceEmbeddingUrl, setAgentforceEmbeddingUrl] = useState("");
   const [agentforceEmbeddingApiName, setAgentforceEmbeddingApiName] = useState("");
+  const [isAgentforceChatActive, setIsAgentforceChatActive] = useState(false);
 
   const configureScriptUrl = useScript();
   const configureAgentforceScriptUrl = useAgentforceScript();
+  const setChatSelector = useBearStore((state) => state.setChatSelector);
 
   useEffect(() => {
     const existingScript = document.querySelector('script[src*="c360a.min.js"]');
@@ -54,6 +56,7 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
 
       const parsedAgentforceConfig = JSON.parse(agentforceConfig);
 
+      setIsAgentforceChatActive(true);
       setAgentforceOrgId(parsedAgentforceConfig.orgId);
       setAgentforceJavascript(parsedAgentforceConfig.scriptUrl);
       setAgentforceSalesforceInstanceUrl(parsedAgentforceConfig.instanceUrl);
@@ -75,6 +78,21 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
     );
   };
 
+  interface ChatToggleEvent {
+    checked: boolean;
+  }
+
+  const chatToggleHandler = (e: ChatToggleEvent) => {
+    if (e.checked) {
+      window.embeddedservice_bootstrap.generateMarkup();
+      setIsAgentforceChatActive(true);
+    } else {
+      window.embeddedservice_bootstrap.removeMarkup();
+      setIsAgentforceChatActive(false);
+    }
+    setChatSelector(e.checked);
+  };
+
   return (
     <DialogRoot
       open={isSettingsModalOpen}
@@ -94,7 +112,7 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
               </Tabs.Trigger>
               <Tabs.Trigger value="external chat" color="black">
                 <BsChatRightDots />
-                External Chat
+                Chat widget settings
               </Tabs.Trigger>
               <Tabs.Trigger value="agentforce" color="black">
                 <PiRobotLight />
@@ -115,8 +133,21 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
               </Field>
             </Tabs.Content>
             <Tabs.Content value="external chat" color="black">
-              <DialogTitle marginBottom="40px">3rd party chat service</DialogTitle>
-              <Switch colorPalette="purple">Enable 3rd party chat</Switch>
+              <DialogTitle marginBottom="40px">Select your web chat service</DialogTitle>
+              <HStack>
+                <Text fontWeight="bold">3rd party chat</Text>
+                <Switch
+                  checked={isAgentforceChatActive}
+                  colorPalette="purple"
+                  color="white"
+                  onCheckedChange={chatToggleHandler}
+                  trackLabel={{
+                    on: <PiRobotLight />,
+                    off: <BsChatRightDots />,
+                  }}
+                />
+                <Text fontWeight="bold">Agentforce</Text>
+              </HStack>
             </Tabs.Content>
             <Tabs.Content value="agentforce" color="black">
               <DialogTitle marginBottom="40px">Agentforce initialization settings</DialogTitle>
