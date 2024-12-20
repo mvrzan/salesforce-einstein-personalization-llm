@@ -10,5 +10,13 @@ declare global {
     SalesforceInteractions: {
       getAnonymousId: () => string;
     };
+    embeddedservice_bootstrap: {
+      settings: {
+        language: string;
+      };
+      init: (orgId: string, embeddingApiName: string, embeddingUrl: string, options: { scrt2URL: string }) => void;
+      removeMarkup: () => void;
+      generateMarkup: () => void;
+    };
   }
 }
