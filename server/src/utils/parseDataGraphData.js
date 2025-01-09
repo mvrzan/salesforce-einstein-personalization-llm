@@ -11,11 +11,12 @@ export const parseDataGraph = (dataGraph) => {
   const decodedJson = decodeJson(dataGraph.data[0].json_blob__c);
   const parsedJson = JSON.parse(decodedJson);
   const individual = parsedJson.UnifiedLinkssotIndividualMcp__dlm[0].ssot__Individual__dlm;
-  const chatMessages = individual[0].chatActivities__dlm;
+  const chatMessages = individual[0].Chat_Activities__dlm;
   const deviceId = parsedJson.UnifiedLinkssotIndividualMcp__dlm[0].SourceRecordId__c;
 
   const formattedChatMessages = chatMessages?.map((chatMessage) => {
-    return { chatMessage: chatMessage.chatActivities_chatMessage__c, dateTime: chatMessage.dateTime__c };
+    console.log(chatMessage);
+    return { chatMessage: chatMessage.chatMessage__c, dateTime: chatMessage.eventDate__c };
   });
 
   const formattedDataGraphObject = {
@@ -27,5 +28,6 @@ export const parseDataGraph = (dataGraph) => {
     ],
   };
 
+  console.log(formattedDataGraphObject);
   return formattedDataGraphObject;
 };

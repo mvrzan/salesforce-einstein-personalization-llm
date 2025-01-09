@@ -84,10 +84,10 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
 
   const chatToggleHandler = (e: ChatToggleEvent) => {
     if (e.checked) {
-      window.embeddedservice_bootstrap.generateMarkup();
+      window.embeddedservice_bootstrap?.generateMarkup();
       setIsAgentforceChatActive(true);
     } else {
-      window.embeddedservice_bootstrap.removeMarkup();
+      window.embeddedservice_bootstrap?.removeMarkup();
       setIsAgentforceChatActive(false);
     }
     setChatSelector(e.checked);

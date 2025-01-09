@@ -84,7 +84,7 @@ const useAgentforceScript = () => {
           });
 
           console.log("🤖 Event listener successfully added!");
-        }, 1000);
+        }, 5000);
       } catch (error) {
         console.error("❌ There was an error when initializing Agentforce:", error);
       }

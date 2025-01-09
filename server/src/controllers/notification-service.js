@@ -22,7 +22,6 @@ export const notificationService = async (req, res) => {
     }
 
     const data = await dataGraphResponse.json();
-
     const chatMessages = parseDataGraph(data);
 
     console.log(chatMessages);
