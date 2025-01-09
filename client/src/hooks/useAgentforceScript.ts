@@ -60,8 +60,11 @@ const useAgentforceScript = () => {
           console.log("🤖 Device ID successfully configured for prechat!");
           console.log("🤖 Adding messages event listener...");
 
-          window.addEventListener("onEmbeddedMessageSent", () => {
-            console.log("message sent");
+          window.addEventListener("onEmbeddedMessageSent", (event) => {
+            const customEvent = event as CustomEvent;
+            const sender = customEvent?.detail.conversationEntry.sender.appType;
+
+            if (sender !== "chatbot") return;
 
             setTimeout(() => {
               const getProducts = async () => {
@@ -77,7 +80,7 @@ const useAgentforceScript = () => {
               };
 
               getProducts();
-            }, 15000);
+            }, 100);
           });
 
           console.log("🤖 Event listener successfully added!");
