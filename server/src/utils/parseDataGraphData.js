@@ -28,6 +28,5 @@ export const parseDataGraph = (dataGraph) => {
     ],
   };
 
-  console.log(formattedDataGraphObject);
   return formattedDataGraphObject;
 };
