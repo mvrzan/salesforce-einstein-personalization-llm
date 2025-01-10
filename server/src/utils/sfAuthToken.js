@@ -21,7 +21,9 @@ const sfAuthToken = async () => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(`There was an error while getting the Salesforce Access Token: ${response.statusText}`);
+      throw new Error(
+        `There was an error while getting the Salesforce Access Token: ${response.status} - ${response.statusText}`
+      );
     }
 
     return { accessToken: data.access_token, instanceUrl: data.instance_url };
