@@ -2,11 +2,11 @@ import sfAuthToken from "../utils/sfAuthToken.js";
 import { parseDataGraph } from "../utils/parseDataGraphData.js";
 
 export const notificationService = async (req, res) => {
-  console.log("🔧 Request received...");
+  console.log("🪬 Request received...");
 
   const { instanceUrl, accessToken } = await sfAuthToken();
 
-  console.log("✅ Salesforce auth token successfully retrieved!");
+  console.log("🔑 Salesforce auth token successfully retrieved!");
 
   const deviceId = req.body.deviceId;
 
@@ -30,12 +30,12 @@ export const notificationService = async (req, res) => {
       );
     }
 
-    console.log("✅ Data Graph data successfully fetched. Parsing data and extracting chat messages...");
+    console.log("📉 Data Graph data successfully fetched. Parsing data and extracting chat messages...");
 
     const data = await dataGraphResponse.json();
     const chatMessages = parseDataGraph(data);
 
-    console.log("✅ Data Graph data successfully parsed!");
+    console.log("🔧 Data Graph data successfully parsed!");
 
     const flowConfig = {
       method: "POST",
