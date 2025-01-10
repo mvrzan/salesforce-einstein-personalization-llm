@@ -15,15 +15,16 @@ export const parseDataGraph = (dataGraph) => {
   const deviceId = parsedJson.UnifiedLinkssotIndividualMcp__dlm[0].SourceRecordId__c;
 
   const formattedChatMessages = chatMessages?.map((chatMessage) => {
-    console.log(chatMessage);
     return { chatMessage: chatMessage.chatMessage__c, dateTime: chatMessage.eventDate__c };
   });
+
+  const latestMessage = formattedChatMessages[formattedChatMessages.length - 1];
 
   const formattedDataGraphObject = {
     inputs: [
       {
         deviceId: deviceId,
-        chatBody: JSON.stringify(formattedChatMessages),
+        chatBody: JSON.stringify(latestMessage),
       },
     ],
   };
