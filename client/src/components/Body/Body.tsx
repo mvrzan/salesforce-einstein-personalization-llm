@@ -13,10 +13,10 @@ const Body = () => {
             bgClip="text"
             css={{ background: "linear-gradient(to right, #66B2FF, #A366FF, #CC99FF)" }}
           >
-            Einstein Personalization
+            Salesforce Personalization
           </Text>
           <Text fontSize="2xl" fontWeight="normal" fontStyle="italic">
-            Discovery how you can user real-time Einstein Personalization
+            Discovery how you can user real-time Salesforce Personalization
           </Text>
           <HStack>
             <Text fontSize="2xl" fontWeight="normal" fontStyle="italic">
