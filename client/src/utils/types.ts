@@ -8,11 +8,17 @@ export interface ProductType {
 declare global {
   export interface Window {
     SalesforceInteractions: {
+      init: (config: { consents: { provider: string; purpose: string; status: string }[] }) => Promise<void>;
+      ConsentPurpose: { Tracking: string };
+      ConsentStatus: { OptIn: string };
       getAnonymousId: () => string;
     };
     embeddedservice_bootstrap: {
       settings: {
         language: string;
+      };
+      prechatAPI: {
+        setHiddenPrechatFields: (fields: { [key: string]: string }) => void;
       };
       init: (orgId: string, embeddingApiName: string, embeddingUrl: string, options: { scrt2URL: string }) => void;
       removeMarkup: () => void;
