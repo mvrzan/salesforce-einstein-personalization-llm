@@ -1,21 +1,13 @@
 import sfAuthToken from "../utils/sfAuthToken.js";
 import { parseDataGraph } from "../utils/parseDataGraphData.js";
+import { getCurrentTimestamp } from "../utils/getCurrentTimestamp.js";
 
 export const notificationService = async (req, res) => {
-  const now = new Date();
-  const day = now.getDate();
-  const month = now.getMonth() + 1;
-  const year = now.getFullYear();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-  const date = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-
-  console.log(`${date} 🪬 Request received...`);
+  console.log(`${getCurrentTimestamp()} 🪬 Request received...`);
 
   const { instanceUrl, accessToken } = await sfAuthToken();
 
-  console.log(`${date} 🔑 Salesforce auth token successfully retrieved!`);
+  console.log(`${getCurrentTimestamp()} 🔑 Salesforce auth token successfully retrieved!`);
 
   const deviceId = req.body.deviceId;
 
@@ -26,7 +18,7 @@ export const notificationService = async (req, res) => {
       },
     };
 
-    console.log(`${date} 📈 Fetching Data Graph information...`);
+    console.log(`${getCurrentTimestamp()} 📈 Fetching Data Graph information...`);
 
     const dataGraphResponse = await fetch(
       `${instanceUrl}/services/data/v61.0/ssot/data-graphs/data/RealTimeId?lookupKeys=UnifiedLinkssotIndividualMcp__dlm.SourceRecordId__c=${deviceId}`,
@@ -39,12 +31,14 @@ export const notificationService = async (req, res) => {
       );
     }
 
-    console.log(`${date} 📉 Data Graph data successfully fetched. Parsing data and extracting chat messages...`);
+    console.log(
+      `${getCurrentTimestamp()} 📉 Data Graph data successfully fetched. Parsing data and extracting chat messages...`
+    );
 
     const data = await dataGraphResponse.json();
     const chatMessages = parseDataGraph(data);
 
-    console.log(`${date} 🔧 Data Graph data successfully parsed!`);
+    console.log(`${getCurrentTimestamp()} 🔧 Data Graph data successfully parsed!`);
 
     const flowConfig = {
       method: "POST",
@@ -55,7 +49,7 @@ export const notificationService = async (req, res) => {
       body: JSON.stringify(chatMessages),
     };
 
-    console.log(`${date} 🤖 Invoking Salesforce flow...`);
+    console.log(`${getCurrentTimestamp()} 🤖 Invoking Salesforce flow...`);
 
     const flowResponse = await fetch(
       `${instanceUrl}/services/data/v61.0/actions/custom/flow/${process.env.AI_FLOW_NAME}`,
@@ -68,7 +62,7 @@ export const notificationService = async (req, res) => {
       );
     }
 
-    console.log(`${date} ✅ Salesforce flow was successfully invoked!`);
+    console.log(`${getCurrentTimestamp()} ✅ Salesforce flow was successfully invoked!`);
 
     res.status(200).json("Flow triggered successfully!");
   } catch (error) {
