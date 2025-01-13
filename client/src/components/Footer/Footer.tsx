@@ -11,7 +11,7 @@ const Footer = () => {
         <VStack>
           <HStack>
             <Text fontWeight="extrabold" fontSize="2xl">
-              Einstein Personalization demo with
+              Salesforce Personalization demo with
             </Text>
             <Text
               fontSize="2xl"
