@@ -1,8 +1,7 @@
+import useBearStore from "@/hooks/useBearStore";
+import { toaster } from "@/components/ui/toaster";
 import { writeToLocalStorage } from "../utils/localStorageUtil";
 import useSalesforceInteractions from "@/hooks/useSalesforceInteractions";
-import useBearStore from "@/hooks/useBearStore";
-
-import { toaster } from "@/components/ui/toaster";
 
 const useAgentforceScript = () => {
   const { personalizationProductRecommendations } = useSalesforceInteractions();
@@ -18,6 +17,21 @@ const useAgentforceScript = () => {
   ) => {
     const script = document.createElement("script");
     script.src = scriptUrl;
+
+    const SLDS_CSS_URL = `${embeddingUrl}/assets/styles/bootstrap.min.css`;
+
+    // Create and append preload link
+    const preloadLink = document.createElement("link");
+    preloadLink.rel = "preload";
+    preloadLink.as = "style";
+    preloadLink.href = SLDS_CSS_URL;
+    document.head.appendChild(preloadLink);
+
+    // Create and append stylesheet link
+    const stylesheetLink = document.createElement("link");
+    stylesheetLink.rel = "stylesheet";
+    stylesheetLink.href = SLDS_CSS_URL;
+    document.head.appendChild(stylesheetLink);
 
     script.onload = () => {
       try {
