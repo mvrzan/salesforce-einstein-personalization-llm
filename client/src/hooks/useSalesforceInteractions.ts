@@ -1,12 +1,6 @@
 import { readFromLocalStorage } from "../utils/localStorageUtil";
 import { ProductType } from "@/utils/types";
 
-declare const window: Window &
-  typeof globalThis & {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    SalesforceInteractions: any;
-  };
-
 interface SalesforceInteractions {
   userChatMessage: (chatMessage: string) => void;
   viewProduct: (id: number, productName: string, productDescription: string) => void;
