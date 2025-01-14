@@ -127,6 +127,7 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
       phoneNumber: phoneNumber,
     };
 
+    // Send to Salesforce Data Cloud a custom event "userLoggedIn" and pass user details
     window.SalesforceInteractions.sendEvent({
       interaction: {
         name: "User Logged In",
@@ -160,6 +161,7 @@ const useSalesforceInteractions = (): SalesforceInteractions => {
       phoneNumber: phoneNumber,
     };
 
+    // Send to Salesforce Data Cloud a custom event "userLoggedOut" and pass user details
     window.SalesforceInteractions.sendEvent({
       interaction: {
         name: "User Logged Out",
