@@ -1,14 +1,5 @@
 import { writeToLocalStorage } from "../utils/localStorageUtil";
 
-declare const window: Window &
-  typeof globalThis & {
-    SalesforceInteractions: {
-      init: (config: { consents: { provider: string; purpose: string; status: string }[] }) => Promise<void>;
-      ConsentPurpose: { Tracking: string };
-      ConsentStatus: { OptIn: string };
-    };
-  };
-
 const useScript = () => {
   const configureScriptUrl = (url: string) => {
     const script = document.createElement("script");
