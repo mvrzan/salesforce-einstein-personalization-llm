@@ -2,6 +2,11 @@ import { writeToLocalStorage } from "../utils/localStorageUtil";
 
 const useScript = () => {
   const configureScriptUrl = (url: string) => {
+    const existingScript = document.querySelector('script[src*="c360a.min.js"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
     const script = document.createElement("script");
     script.src = url;
 
