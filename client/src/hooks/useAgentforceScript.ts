@@ -43,8 +43,11 @@ const useAgentforceScript = () => {
           window.addEventListener("onEmbeddedMessageSent", (event) => {
             const customEvent = event as CustomEvent;
             const sender = customEvent?.detail.conversationEntry.sender.appType;
+            const initialMessage =
+              JSON.parse(customEvent?.detail.conversationEntry.entryPayload).abstractMessage.staticContent.text ===
+              "Hi, I'm an AI service assistant. How can I help you?";
 
-            if (sender !== "chatbot") return;
+            if (sender !== "chatbot" || initialMessage) return;
 
             setTimeout(() => {
               const getProducts = async () => {
