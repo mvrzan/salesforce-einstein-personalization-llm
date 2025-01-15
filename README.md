@@ -16,6 +16,8 @@
   - [What does it do?](#what-does-it-do)
   - [How does it work?](#how-does-it-work)
     - [Architecture diagram](#architecture-diagram)
+      - [3rd Party Chat Architecture](#3rd-party-chat-architecture)
+      - [Agentforce Architecture](#agentforce-architecture)
 - [Kudos](#kudos)
 - [License](#license)
 
@@ -40,6 +42,8 @@ In this project, you will find an example of how to utilize Salesforce Data Clou
   - [What does it do?](#what-does-it-do)
   - [How does it work?](#how-does-it-work)
     - [Architecture diagram](#architecture-diagram)
+      - [3rd Party Chat Architecture](#3rd-party-chat-architecture)
+      - [Agentforce Architecture](#agentforce-architecture)
 - [Kudos](#kudos)
 - [License](#license)
 
@@ -53,7 +57,20 @@ In this project, you will find an example of how to utilize Salesforce Data Clou
 
 ### Architecture diagram
 
+There are two separate use cases here:
+
+1. Example of a 3rd party chat library [getstream.io](https://getstream.io/) with real-time Salesforce Personalization
+2. Example of Salesforce Agentforce chat with real-time Salesforce Personalization
+
+#### 3rd Party Chat Architecture
+
 ![](./screenshots/3rd-party-architecture-diagram.png)
+
+The application flow is the following:
+
+#### Agentforce Architecture
+
+![](./screenshots/agentforce-architecture-diagram.png)
 
 The application flow is the following:
 
