@@ -58,6 +58,12 @@ The application flow is the following:
 
 **Server**
 
+1. The web server is a [Node Express server](./server/index.js) hosted on Heroku
+2. The web server uses the [Salesforce credentials](./server/.env.example) to retrieve the [authentication token](./server/src/utils/sfAuthToken.js) from Salesforce
+3. With the retrieved token, a [Data Graph is invoked](./server/src/controllers/notification-service.js#23) based on the provided `deviceId`
+4. The retrieved data from the Data Graph then gets [parsed](./server/src/utils/parseDataGraphData.js)
+5. The parsed chat messages and the `deviceId` get send to the [Saleforce Flow via an API call](./server/src/controllers/notification-service.js#54)
+
 #### Agentforce Architecture
 
 ![](./screenshots/agentforce-architecture-diagram.png)
