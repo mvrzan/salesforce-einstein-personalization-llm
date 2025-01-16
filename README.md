@@ -8,6 +8,8 @@
 
 # Salesforce Personalization with Agentforce and a 3rd Party Chat Service
 
+This project showcases how you can personalized your website based on a chat conversation you have with a Agentforce chatbot or a 3rd party chat service.
+
 # Table of Contents
 
 - [Salesforce Personalization with Agentforce and a 3rd Party Chat Service](#salesforce-personalization-with-agentforce-and-a-3rd-party-chat-service)
@@ -24,9 +26,13 @@
 
 ---
 
-🚧**WORK IN PROGRESS**🚧
-
 ## What does it do?
+
+This project demonstrates how to leverage Salesforce Personalization to tailor a user’s experience based on real-time chat interactions. By integrating an Agentforce chatbot (or a third-party chat service) with Salesforce Data Cloud event streaming, the application listens for user messages in chat sessions.
+
+The chat messages are then picked up by the Salesforce backend and/or a Heroku web server that then updates the Salesforce backend and makes it ready for Salesforce Personalization.
+
+When a relevant message is detected, it triggers Salesforce Personalization to fetch and deliver individualized recommendations or theme changes. This ensures that web content, product suggestions, and visual styling are dynamically adapted to each user’s conversation context, providing a customized and engaging experience.
 
 ## How does it work?
 
