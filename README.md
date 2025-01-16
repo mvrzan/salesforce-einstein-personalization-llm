@@ -64,6 +64,24 @@ The application flow is the following:
 4. The retrieved data from the Data Graph then gets [parsed](./server/src/utils/parseDataGraphData.js)
 5. The parsed chat messages and the `deviceId` get send to the [Saleforce Flow via an API call](./server/src/controllers/notification-service.js#54)
 
+**Salesforce Backend**
+
+1. Salesforce Flow takes the provided chat messages and the `deviceId` from the API call
+2. The Flow invokes a custom **Prompt**
+3. The custom **Prompt** is instructed to deduce the product category based on the provided chat messages and the provided product catalog
+4. Once the LLM deduces the product category, it will then return that in a specific format: `category,id`
+5. The returned data gets passed back to the Salesforce Flow
+6. Salesforce Flow takes the provided product category data and passes it off to a custom Apex class
+7. The custom Apex class writes the data back to the Data Cloud's real-time Data Graph
+
+**Client Personalization**
+
+1. The client sends a message to the Salesforce Personalization endpoint via the [Data Cloud Web SDK](./client/src/hooks/useSalesforceInteractions.ts#196)
+2. The Salesforce Personalization engine queries the real-time Data Graph for latest data
+3. The Salesforce Personalization engine decides what the are appropriate product recommendations
+4. The client receives the product recommendations from the Salesforce Personalization endpoint
+5. Finally, the client makes the [changes on the web page](./client/src/components/Body/Recommendations.tsx)
+
 #### Agentforce Architecture
 
 ![](./screenshots/agentforce-architecture-diagram.png)
