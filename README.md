@@ -17,8 +17,10 @@
     - [Architecture diagram](#architecture-diagram)
       - [3rd Party Chat Architecture](#3rd-party-chat-architecture)
       - [Agentforce Architecture](#agentforce-architecture)
+  - [Technologies used](#technologies-used)
 - [Kudos](#kudos)
 - [License](#license)
+- [Disclaimer](#disclaimer)
 
 ---
 
@@ -120,6 +122,36 @@ The application flow is the following:
 4. The client receives the product recommendations from the Salesforce Personalization endpoint
 5. Finally, the client makes the [changes on the web page](./client/src/components/Body/Recommendations.tsx)
 
+## Technologies used
+
+**Client**
+
+- [Vite](https://vitejs.dev/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Zustand](https://github.com/pmndrs/zustand)
+- [Chakra UI 3.0](https://www.chakra-ui.com/)
+- [Data Cloud SDK](https://developer.salesforce.com/docs/atlas.en-us.c360a_api.meta/c360a_api/c360a_api_connect_data.htm)
+- [getstream.io](https://getstream.io/)
+- [Salesforce Embedded Chat](https://developer.salesforce.com/docs/atlas.en-us.snapins_web_dev.meta/snapins_web_dev/snapins_web_overview.htm)
+
+**Server**
+
+- [Node.js](https://nodejs.org/en)
+- [Express](https://expressjs.com/)
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [Heroku](https://www.heroku.com/)
+
+**Salesforce**
+
+- [Salesforce Data Cloud](https://www.salesforce.com/data/)
+- [Data Cloud Data Graphs](https://help.salesforce.com/s/articleView?id=sf.c360_a_data_graphs.htm&type=5)
+- [Salesforce Flows](https://help.salesforce.com/s/articleView?id=platform.flow.htm&type=5)
+- [Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm)
+- [Prompts](https://www.salesforce.com/artificial-intelligence/prompt-builder/)
+- [Salesforce Personalization](https://help.salesforce.com/s/articleView?id=mktg.mc_persnl.htm&type=5)
+- [Agentforce](https://www.salesforce.com/ca/agentforce/)
+
 # Kudos
 
 Special thank you to [Daniel Kuo](https://github.com/dkuosf) and [Anne Pizzini](https://github.com/annepizzi).
@@ -127,3 +159,7 @@ Special thank you to [Daniel Kuo](https://github.com/dkuosf) and [Anne Pizzini](
 # License
 
 [MIT](http://www.opensource.org/licenses/mit-license.html)
+
+# Disclaimer
+
+This software is to be considered "sample code", a Type B Deliverable, and is delivered "as-is" to the user. Salesforce bears no responsibility to support the use or implementation of this software.
