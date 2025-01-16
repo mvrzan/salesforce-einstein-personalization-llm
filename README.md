@@ -19,6 +19,10 @@ This project showcases how you can personalized your website based on a chat con
     - [Architecture diagram](#architecture-diagram)
       - [3rd Party Chat Architecture](#3rd-party-chat-architecture)
       - [Agentforce Architecture](#agentforce-architecture)
+  - [Demo: Agentforce chat](#demo-agentforce-chat)
+  - [Demo: 3rd party chat](#demo-3rd-party-chat)
+  - [Demo: Initialize Data Cloud SDK](#demo-initialize-data-cloud-sdk)
+  - [Demo: Initialize Agentforce chat](#demo-initialize-agentforce-chat)
   - [Technologies used](#technologies-used)
 - [Kudos](#kudos)
 - [License](#license)
@@ -127,6 +131,22 @@ The application flow is the following:
 3. The Salesforce Personalization engine decides what the are appropriate product recommendations
 4. The client receives the product recommendations from the Salesforce Personalization endpoint
 5. Finally, the client makes the [changes on the web page](./client/src/components/Body/Recommendations.tsx)
+
+## Demo: Agentforce chat
+
+**Work in progress**
+
+## Demo: 3rd party chat
+
+![](./screenshots/3rd-party-chat.gif)
+
+## Demo: Initialize Data Cloud SDK
+
+![](./screenshots/initialize-data-cloud-sdk.gif)
+
+## Demo: Initialize Agentforce chat
+
+![](./screenshots/initialize-agentforce-chat.gif)
 
 ## Technologies used
 
