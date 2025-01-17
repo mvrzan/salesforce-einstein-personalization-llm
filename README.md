@@ -24,6 +24,9 @@ This project showcases how you can personalized your website based on a chat con
   - [Demo: Initialize Data Cloud SDK](#demo-initialize-data-cloud-sdk)
   - [Demo: Initialize Agentforce chat](#demo-initialize-agentforce-chat)
   - [Technologies used](#technologies-used)
+- [Configuration](#configuration)
+  - [Requirements](#requirements)
+  - [Setup](#setup)
 - [Kudos](#kudos)
 - [License](#license)
 - [Disclaimer](#disclaimer)
@@ -177,6 +180,21 @@ The application flow is the following:
 - [Prompts](https://www.salesforce.com/artificial-intelligence/prompt-builder/)
 - [Salesforce Personalization](https://help.salesforce.com/s/articleView?id=mktg.mc_persnl.htm&type=5)
 - [Agentforce](https://www.salesforce.com/ca/agentforce/)
+
+# Configuration
+
+## Requirements
+
+To run this application locally, you will need the following:
+
+- An active Salesforce account with Data Cloud, Embedded Service, and Personalization provisioned
+- [If you want to use a 3rd party chat service] an [getstream.io](https://getstream.io/) account
+- Node.js version 20 or later installed (type `node -v` in your terminal to check). Follow [instructions](https://nodejs.org/en/download) if you don't have node installed
+- npm version 10.0.0 or later installed (type `npm -v` in your terminal to check). Node.js includes `npm`
+- git installed. Follow the instructions to [install git](https://git-scm.com/downloads)
+- [deployment only] A [Heroku account](https://signup.heroku.com/)
+
+## Setup
 
 # Kudos
 
