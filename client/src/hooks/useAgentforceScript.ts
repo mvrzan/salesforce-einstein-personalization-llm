@@ -7,6 +7,7 @@ const useAgentforceScript = () => {
   const { personalizationProductRecommendations } = useSalesforceInteractions();
   const updateRecommendedProducts = useBearStore((state) => state.updateRecommendedProducts);
   const setTheme = useBearStore((state) => state.setTheme);
+  const setChatSelector = useBearStore((state) => state.setChatSelector);
 
   const configureAgentforceScriptUrl = (
     orgId: string,
@@ -22,6 +23,8 @@ const useAgentforceScript = () => {
       try {
         console.log("🤖 Initializing Agentforce...");
 
+        setChatSelector(true);
+
         window.embeddedservice_bootstrap.settings.language = "en_US";
         window.embeddedservice_bootstrap.init(orgId, embeddingApiName, embeddingUrl, {
           scrt2URL: instanceUrl,
@@ -32,7 +35,6 @@ const useAgentforceScript = () => {
 
         setTimeout(() => {
           const deviceId = window?.SalesforceInteractions.getAnonymousId();
-
           window.embeddedservice_bootstrap.prechatAPI.setHiddenPrechatFields({
             deviceId: deviceId,
           });
