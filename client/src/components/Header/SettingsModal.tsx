@@ -39,8 +39,14 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
   const configureScriptUrl = useScript();
   const configureAgentforceScriptUrl = useAgentforceScript();
   const setChatSelector = useBearStore((state) => state.setChatSelector);
+  const chatSelector = useBearStore((state) => state.chatSelector);
 
   useEffect(() => {
+    if (chatSelector === "external") {
+      setIsAgentforceChatActive(false);
+    } else {
+      setIsAgentforceChatActive(true);
+    }
     const existingScript = document.querySelector('script[src*="c360a.min.js"]');
 
     if (existingScript) {
@@ -56,14 +62,14 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
 
       const parsedAgentforceConfig = JSON.parse(agentforceConfig);
 
-      setIsAgentforceChatActive(true);
+      // setIsAgentforceChatActive(true);
       setAgentforceOrgId(parsedAgentforceConfig.orgId);
       setAgentforceJavascript(parsedAgentforceConfig.scriptUrl);
       setAgentforceSalesforceInstanceUrl(parsedAgentforceConfig.instanceUrl);
       setAgentforceEmbeddingUrl(parsedAgentforceConfig.embeddingUrl);
       setAgentforceEmbeddingApiName(parsedAgentforceConfig.embeddingApiName);
     }
-  }, []);
+  }, [chatSelector]);
 
   const saveChangesHandler = () => {
     setIsSettingsModalOpen(false);
