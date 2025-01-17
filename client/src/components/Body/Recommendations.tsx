@@ -56,12 +56,14 @@ const Recommendations = () => {
     const productCategory = epRecommendedProducts[0]?.ssot__PrimaryProductCategory__c;
     setSelectedCategory(productCategory);
     setResetRecommendationsVisible(true);
+    setRecommendedProducts([]);
   }, [epRecommendedProducts]);
 
   const productClickedHandler = async (id: number, productName: string, productDescription: string) => {
     viewProduct(id, productName, productDescription);
 
     const products = await personalizationProductRecommendations(["recsEP1"], id.toString());
+    updateRecommendedProducts([]);
     setRecommendedProducts(products);
     setResetRecommendationsVisible(true);
     setSelectedCategory(productName);
