@@ -19,6 +19,8 @@ const useAgentforceScript = () => {
     const script = document.createElement("script");
     script.src = scriptUrl;
 
+    if (window.embeddedservice_bootstrap) return;
+
     script.onload = () => {
       try {
         console.log("🤖 Initializing Agentforce...");
