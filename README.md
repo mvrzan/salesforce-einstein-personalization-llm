@@ -196,6 +196,8 @@ To run this application locally, you will need the following:
 
 ## Setup
 
+**🚧 Work in progress 🚧**
+
 # Kudos
 
 Special thank you to [Daniel Kuo](https://github.com/dkuosf) and [Anne Pizzini](https://github.com/annepizzi).
