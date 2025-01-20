@@ -1,6 +1,6 @@
 const notifyAi = async (deviceId: string): Promise<void> => {
   try {
-    const baseUrl = import.meta.env.VITE_NOTIFICATION_SERVICE || "http://localhost:3000/v1/notification-service";
+    const baseUrl = import.meta.env.VITE_NOTIFICATION_SERVICE || "/v1/notification-service";
 
     const payload = {
       deviceId,
