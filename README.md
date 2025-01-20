@@ -31,6 +31,7 @@ This project showcases how you can personalized your website based on a chat con
     - [Local environment configuration](#local-environment-configuration)
     - [Development](#development)
     - [Salesforce environment](#salesforce-environment)
+      - [Data Cloud](#data-cloud)
   - [Deployment](#deployment)
       - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
 - [Kudos](#kudos)
@@ -311,6 +312,38 @@ When you make changes to your code, the server will automatically restart to fet
 
 ### Salesforce environment
 
+In order for this application to work end to end, there are several Salesforce configuration steps that have to happen first.
+
+#### Data Cloud
+
+**Website events**
+
+1. Within Data Cloud, the first step is to configure a Website connector using the provided [web event schema](./client/src/utils/data-cloud-schema.json).
+2. Configure Data Streams for the newly configured Website connector and map the fields appropriately
+3. The `Chat Activities`, `User Logged In`, and `User Logged Out` are custom Data Model Objects that have a N:1 relationship to the Individual DMO
+4. Ensure you have a real-time Identity Resolution running
+5. Create a real-time Data Graph
+
+![](./screenshots/real-time-data-graph.png)
+
+**Server events**
+
+1. Ensure you have created a [Salesforce Connected App](https://help.salesforce.com/s/articleView?id=xcloud.connected_app_create.htm&type=5)
+2. You are going to need this information for the `server` `.env` file and connection
+3. NOTE: This step is only needed if you are using a 3rd party chat example
+
+**Salesforce Flows**
+
+Create two flows, one for the 3rd party chat and one for the Agentforce chat.
+
+3rd party chat Flow
+
+![](./screenshots/3rd-party-flow.png)
+
+Agentforce chat Flow
+
+![](./screenshots/agentforce-flow.png)
+
 ## Deployment
 
 Once you are happy with your application, you can deploy it to Heroku!
@@ -321,7 +354,7 @@ To deploy the application to Heroku, please follow the [official instructions](h
 
 Absolutely! The only reason why Heroku is used here is because it is owned by Salesforce and at the moment of creating this I am a Salesforce employee.
 
-NOTE: Don't forget to re-create the environment variables in Heroku as the `.env` file will be ignored.
+> NOTE: Don't forget to re-create the environment variables in Heroku as the `.env` file will be ignored. Also, this is a proof of concept and not something that should be deployed in production.
 
 # Kudos
 
