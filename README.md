@@ -28,6 +28,9 @@ This project showcases how you can personalized your website based on a chat con
 - [Configuration](#configuration)
   - [Requirements](#requirements)
   - [Setup](#setup)
+    - [Local environment configuration](#local-environment-configuration)
+    - [Development](#development)
+    - [Salesforce environment](#salesforce-environment)
   - [Deployment](#deployment)
       - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
 - [Kudos](#kudos)
@@ -199,7 +202,114 @@ To run this application locally, you will need the following:
 
 ## Setup
 
-**🚧 Work in progress 🚧**
+### Local environment configuration
+
+The first step is to clone the repository and install the project dependencies for both server and client folders via a terminal interface by running the `npm install` in the proper folder:
+
+Client:
+
+```
+cd salesforce-einstein-personalization-llm
+cd client
+npm install
+```
+
+Server:
+
+```
+cd salesforce-einstein-personalization-llm
+cd server
+npm install
+```
+
+The second step is to create a `.env` file in both the client and server folders. Find two both `.env.example` files, copy them and rename them to `.env`. Remember to do this in both the client and server folders.
+
+Client:
+
+```
+cd salesforce-einstein-personalization-llm/client
+cp .env.example .env
+```
+
+Server:
+
+```
+cd salesforce-einstein-personalization-llm/server
+cp .env.example .env
+```
+
+Edit the newly created `.env` files and update the variables with your account specific information. Remember there are two files: one for `client` and one for `server`:
+
+**Client:**
+
+> NOTE: You only need to do this if you want to use the [getstream.io](https://getstream.io/) 3rd party chat library.
+
+Follow the official getstream.io [guide](https://getstream.io/blog/stream-getting-started-guide/) on getting started.
+
+Once you have an account, you can use the [JWT Generator](https://getstream.io/chat/docs/react/token_generator/) to generate the credentials for your development purposes. Once you have the token information, ensure you populate your `client` `.env` file:
+
+```
+# Customer Stream credentials
+VITE_API_KEY=
+VITE_USER_ID=
+VITE_USER_NAME=
+VITE_USER_TOKEN=
+
+# Agent Stream credentials
+VITE_AGENT_API_KEY=
+VITE_AGENT_USER_ID=
+VITE_AGENT_USER_NAME=
+VITE_AGENT_USER_TOKEN=
+
+# Notification service URL
+VITE_NOTIFICATION_SERVICE=http://localhost:3000/v1/notification-service
+```
+
+> NOTE: The token logic in this repo does not have a server authentication flow and the tokens are manually provided as `.env` variables. Please keep this in mind if you want to deploy this application as-is.
+
+**Server:**
+
+> NOTE: You only need to do this if you want to use the 3rd party chat library. For details why, please read the [application flow](./README.md#3rd-party-chat-architecture).
+
+For details on creating a Salesforce token, please visit the [official documentation](https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm&type=5).
+
+```
+# Salesforce credentials
+CLIENT_ID=
+CLIENT_SECRET=
+SALESFORCE_LOGIN_URL=https://login.salesforce.com
+SALESFORCE_INSTANCE_URL=
+SALESFORCE_API_VERSION=v61.0
+AI_FLOW_NAME=
+```
+
+> NOTE: If you want to deploy this application to Heroku, you will have to create all of the above variables (for both the client and the server) as Heroku environment variables. This can be done via the [command line or the Heroku Dashboard UI](https://devcenter.heroku.com/articles/config-vars).
+
+Once all of this is done, you are ready to run the application locally!
+
+### Development
+
+To run the application locally, use the command line, navigate to the `server` and `client` folders separately (yes, you will need 2 separate terminal sessions), ensure the dependencies are installed properly, and run the following:
+
+Server:
+
+```
+cd salesforce-einstein-personalization-llm/server
+npm run dev
+```
+
+Client:
+
+```
+cd salesforce-einstein-personalization-llm/client
+npm run dev
+```
+
+This will automatically run the Express development server. Your client app will run on `http://localhost:5173` and the server will be available at `http://localhost:3000`.
+
+When you make changes to your code, the server will automatically restart to fetch new changes.
+
+### Salesforce environment
 
 ## Deployment
 
