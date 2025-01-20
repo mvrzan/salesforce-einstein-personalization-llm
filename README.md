@@ -28,6 +28,8 @@ This project showcases how you can personalized your website based on a chat con
 - [Configuration](#configuration)
   - [Requirements](#requirements)
   - [Setup](#setup)
+  - [Deployment](#deployment)
+      - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
 - [Kudos](#kudos)
 - [License](#license)
 - [Disclaimer](#disclaimer)
@@ -198,6 +200,18 @@ To run this application locally, you will need the following:
 ## Setup
 
 **🚧 Work in progress 🚧**
+
+## Deployment
+
+Once you are happy with your application, you can deploy it to Heroku!
+
+To deploy the application to Heroku, please follow the [official instructions](https://devcenter.heroku.com/articles/git).
+
+#### Can I deploy this anywhere else other than Heroku?
+
+Absolutely! The only reason why Heroku is used here is because it is owned by Salesforce and at the moment of creating this I am a Salesforce employee.
+
+NOTE: Don't forget to re-create the environment variables in Heroku as the `.env` file will be ignored.
 
 # Kudos
 
