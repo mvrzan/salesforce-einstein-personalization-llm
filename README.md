@@ -430,6 +430,8 @@ deviceId,category
 
 #### Apex Class
 
+Ensure you deploy the [Apex code](./salesforce/) to your org.
+
 #### Agentforce
 
 1. Create a new Embedded Service Deployment and make it a `Messaging for In-App and Web`
