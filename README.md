@@ -4,7 +4,7 @@
 <a  href="https://www.salesforce.com/ca/agentforce/"><img  src="https://wp.salesforce.com/en-us/wp-content/uploads/sites/4/2024/09/img-agent-1.webp"  alt="Agentforce"  width="150" height="150" hspace="50"/></a>
 <a  href="https://www.heroku.com/"><img  src="https://static-00.iconduck.com/assets.00/heroku-icon-2048x2048-4rs1dp6p.png"  alt="Heroku"  width="150" height="150" hspace="50"/></a>
 <a  href="https://getstream.io/"><img  src="https://miro.medium.com/v2/resize:fit:2400/1*m-gTGzrcRxlkNF3gxGbgdQ.png"  alt="Get Stream IO"  width="150" height="150" hspace="50"/></a>
-<a  href="https://developer.salesforce.com/docs/marketing/einstein-personalization/guide/overview.html"><img  src="https://www.salesforce.com/news/wp-content/uploads/sites/3/2023/03/Newsroom-Press-Release.png"  alt="Einstein Personalization"  width="150" height="150"  hspace="50"/></a>
+<a  href="https://developer.salesforce.com/docs/marketing/einstein-personalization/guide/overview.html"><img  src="./screenshots/personalization.png"  alt="Salesforce Personalization"  width="150" height="150"  hspace="50"/></a>
 <p/>
 
 # Salesforce Personalization with Agentforce and a 3rd Party Chat Service
@@ -32,6 +32,12 @@ This project showcases how you can personalized your website based on a chat con
     - [Development](#development)
     - [Salesforce environment](#salesforce-environment)
       - [Data Cloud](#data-cloud)
+      - [Salesforce Connected App](#salesforce-connected-app)
+      - [Salesforce Flows](#salesforce-flows)
+      - [Personalization](#personalization)
+      - [Prompt](#prompt)
+      - [Apex Class](#apex-class)
+      - [Agentforce](#agentforce)
   - [Deployment](#deployment)
       - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
 - [Kudos](#kudos)
@@ -316,8 +322,6 @@ In order for this application to work end to end, there are several Salesforce c
 
 #### Data Cloud
 
-**Website events**
-
 1. Within Data Cloud, the first step is to configure a Website connector using the provided [web event schema](./client/src/utils/data-cloud-schema.json).
 2. Configure Data Streams for the newly configured Website connector and map the fields appropriately
 3. The `Chat Activities`, `User Logged In`, and `User Logged Out` are custom Data Model Objects that have a N:1 relationship to the Individual DMO
@@ -326,23 +330,117 @@ In order for this application to work end to end, there are several Salesforce c
 
 ![](./screenshots/real-time-data-graph.png)
 
-**Server events**
+6. Create an Item Data Graph
+
+![](./screenshots/item-data-graph.png)
+
+7. Create a Calculated Insights:
+
+```
+SELECT ssot__GoodsProduct__dlm.ssot__Id__c AS goodsProductsId__c, ssot__GoodsProduct__dlm.ssot__Name__c AS productName__c, COUNT(ssot__GoodsProduct__dlm.ssot__Id__c) AS ProductGeneral__c FROM ssot__GoodsProduct__dlm GROUP BY goodsProductsId__c,productName__c
+```
+
+#### Salesforce Connected App
 
 1. Ensure you have created a [Salesforce Connected App](https://help.salesforce.com/s/articleView?id=xcloud.connected_app_create.htm&type=5)
 2. You are going to need this information for the `server` `.env` file and connection
 3. NOTE: This step is only needed if you are using a 3rd party chat example
 
-**Salesforce Flows**
+#### Salesforce Flows
 
-Create two flows, one for the 3rd party chat and one for the Agentforce chat.
+Create three flows, one for the 3rd party chat, one for the Agentforce chat, and one for fetching product categories:
 
 3rd party chat Flow
 
 ![](./screenshots/3rd-party-flow.png)
 
+> NOTE: This Flow API names is going to be passed over to the `server` `.env` file
+
 Agentforce chat Flow
 
 ![](./screenshots/agentforce-flow.png)
+
+Catalog Categories Flow
+
+![](./screenshots/catalog-categories-flow.png)
+
+#### Personalization
+
+1. Have a Recommender that points to the real-time Data Graph and the Items Data Graph
+2. Crate a rule-based recommendations
+3. Select the crated Calculated Insights
+4. Create the following rules:
+
+![](./screenshots/recommender.png)
+
+1. Create a Personalization Schema called `recsEP1`
+2. Set the type to `Recommendations`
+3. Create a Personalization Point called `recsEP1`
+4. Select the newly created Personalization Schema
+
+#### Prompt
+
+Create two prompts. One for the 3rd party chat and one for Agentforce.
+
+3rd party chat
+
+```
+You need to look through chat messages to understand the latest product category being discussed, then refer to a list of catalog categories, and return the category from this list that most closely matches the category currently being discussed.
+
+
+Here is the device id:
+{!$Input:deviceId}
+
+Here is the list of catalog categories:
+{!$Flow:Enhancer_Get_Catalog_Categories.Prompt}
+
+Here are the chat messages as a deserialized json string, which appears in the order from the oldest to most recent. Pick out the latest product category being discussed.
+{!$Input:chatBody}
+
+Return only the value of the device id and category in the following format.
+
+deviceId,category
+
+For deviceId, return only the string without additional modification.
+
+For category, remove the string Category: and return without additional modification.
+If you cannot determine the answer, return the string Unknown. 
+```
+
+Agentforce chat
+
+```
+You need to look through chat messages to understand the latest product category being discussed, then refer to a list of catalog categories, and return the category from this list that most closely matches the category currently being discussed.
+
+
+Here is the device id:
+{!$Input:individualId}
+
+Here is the list of catalog categories:
+{!$Flow:Enhancer_Get_Catalog_Categories.Prompt}
+
+Here are the chat messages as a deserialized json string, which appears in the order from the oldest to most recent. Pick out the latest product category being discussed.
+{!$Input:currentChatMessage}
+
+
+Return only the value of the device id and category in the following format. Do not include additional modification. Remove the string "Category:". If you cannot determine the answer, return the string Unknown.
+
+deviceId,category
+```
+
+#### Apex Class
+
+#### Agentforce
+
+1. Create a new Embedded Service Deployment and make it a `Messaging for In-App and Web`
+2. Build a Service Agent
+3. Ensure the Service Agent has a dedicated Topic
+
+![](./screenshots/agent-topic.png)
+
+4. Ensure the Topic uses the dedicated Flow as its Action
+
+![](./screenshots/agent-action.png)
 
 ## Deployment
 
