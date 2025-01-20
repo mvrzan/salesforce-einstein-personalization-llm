@@ -14,13 +14,16 @@ type BearStore = {
 };
 
 const useBearStore = create<BearStore>((set) => ({
+  // banner image
   bannerImage: "",
   setBannerImage: (image: string) => set({ bannerImage: image }),
   resetBannerImage: () => set({ bannerImage: "" }),
 
+  // Salesforce Personalization
   epRecommendedProducts: [],
   updateRecommendedProducts: (products: ProductType[]) => set({ epRecommendedProducts: products }),
 
+  // website theme
   theme: "",
   setTheme: (product: string) => {
     const themes: { [key: string]: string } = {
@@ -32,6 +35,7 @@ const useBearStore = create<BearStore>((set) => ({
     set({ theme: themes[product] || "" });
   },
 
+  // agentforce vs external chat
   chatSelector: "external",
   setChatSelector: (switchState: boolean) => {
     set({ chatSelector: switchState ? "agentforce" : "external" });
