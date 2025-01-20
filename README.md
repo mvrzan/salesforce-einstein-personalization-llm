@@ -37,9 +37,10 @@ This project showcases how you can personalized your website based on a chat con
       - [Personalization](#personalization)
       - [Prompt](#prompt)
       - [Apex Class](#apex-class)
+      - [Custom Metadata Types](#custom-metadata-types)
       - [Agentforce](#agentforce)
   - [Deployment](#deployment)
-      - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
+    - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
 - [Kudos](#kudos)
 - [License](#license)
 - [Disclaimer](#disclaimer)
@@ -100,7 +101,7 @@ The application flow is the following:
 4. Once the LLM deduces the product category, it will then return that in a specific format: `category,id`
 5. The returned data gets passed back to the Salesforce Flow
 6. Salesforce Flow takes the provided product category data and passes it off to a custom Apex class
-7. The custom Apex class writes the data back to the Data Cloud's real-time Data Graph
+7. The custom [Apex class](./salesforce/force-app/main/default/classes/sendEventEP.cls) writes the data back to the Data Cloud's real-time Data Graph
 
 **Client Personalization**
 
@@ -138,7 +139,7 @@ The application flow is the following:
 7. Once the LLM deduces the product category, it will then return that in a specific format: `category,id`
 8. The returned data gets passed back to the Salesforce Flow
 9. Salesforce Flow takes the provided product category data and passes it off to a custom Apex class
-10. The custom Apex class writes the data back to the Data Cloud's real-time Data Graph
+10. The custom [Apex class](./salesforce/force-app/main/default/classes/sendEventEP.cls) writes the data back to the Data Cloud's real-time Data Graph
 
 **Client Personalization**
 
@@ -431,6 +432,16 @@ deviceId,category
 #### Apex Class
 
 Ensure you deploy the [Apex code](./salesforce/) to your org.
+
+#### Custom Metadata Types
+
+1. Go to Setup in Salesforce.
+2. Search for "Custom Metadata Types" and create a new Custom Metadata Type, e.g., `Einstein_Personalization_Settings`.
+3. Add a custom field to this metadata type, e.g., `Endpoint_URL__c` of type `Text`.
+4. Go to the Custom Metadata Type you created.
+5. Create a new record, e.g., `EP_API_Settings`, and set the `Endpoint_URL__c` field to your desired URL.
+6. The URL value should be the `https://<YOUR_DATA_CLOUD_TENANT_URL>.c360a.salesforce.com/web/events/<APP_ID>'`
+   1. Here's an example: `https://afdsagnjvmqyfdsa312gky32q.c360a.salesforce.com/web/events/2e17b431-3421-883os-a139-c0287491b043d'`
 
 #### Agentforce
 
