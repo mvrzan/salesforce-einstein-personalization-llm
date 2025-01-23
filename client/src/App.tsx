@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import useScript from "./hooks/useScript";
 import useBearStore from "./hooks/useBearStore";
 import useAgentforceScript from "./hooks/useAgentforceScript";
+import useLoadDataCloudScript from "./hooks/useLoadDataCloudScript";
 
 import { Theme } from "@chakra-ui/react";
 import { readFromLocalStorage } from "./utils/localStorageUtil";
@@ -14,22 +14,15 @@ import ChatWidget from "./components/ChatWidget/ChatWidget";
 import AgentChatWidget from "./components/ChatWidget/AgentChatWidget";
 
 const App = () => {
-  const configureScriptUrl = useScript();
   const configureAgentforceScriptUrl = useAgentforceScript();
+  const loadDataCloudScript = useLoadDataCloudScript();
 
   const theme = useBearStore((state) => (state.theme === "dark" || state.theme === "light" ? state.theme : "light"));
   const chatSelector = useBearStore((state) => state.chatSelector);
   const setChatSelector = useBearStore((state) => state.setChatSelector);
 
   useEffect(() => {
-    const existingScript = document.querySelector('script[src*="c360a.min.js"]');
-    if (!existingScript) {
-      const scriptUrl = readFromLocalStorage("scriptUrl");
-
-      if (scriptUrl) {
-        configureScriptUrl(scriptUrl);
-      }
-    }
+    loadDataCloudScript();
 
     const existingAgentforceScript = document.querySelector('script[src*="assets/js/bootstrap.min.js"]');
 
