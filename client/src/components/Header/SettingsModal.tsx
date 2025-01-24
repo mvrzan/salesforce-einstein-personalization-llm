@@ -47,11 +47,6 @@ const SettingsModal = ({ isSettingsModalOpen, setIsSettingsModalOpen }: Settings
     } else {
       setIsAgentforceChatActive(true);
     }
-    const existingScript = document.querySelector('script[src*="c360a.min.js"]');
-
-    if (existingScript) {
-      setScriptUrl(existingScript.getAttribute("src")!);
-    }
 
     const existingAgentforceScript = document.querySelector('script[src*="assets/js/bootstrap.min.js"]');
 
