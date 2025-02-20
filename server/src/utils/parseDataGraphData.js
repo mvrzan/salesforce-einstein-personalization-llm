@@ -18,7 +18,11 @@ export const parseDataGraph = (dataGraph) => {
     return { chatMessage: chatMessage.chatMessage__c, dateTime: chatMessage.eventDate__c };
   });
 
-  const latestMessage = formattedChatMessages[formattedChatMessages.length - 1];
+  console.log("formattedChatMessages", formattedChatMessages);
+
+  const latestMessage = formattedChatMessages.reduce((latest, current) => {
+    return new Date(latest.dateTime) > new Date(current.dateTime) ? latest : current;
+  });
 
   const formattedDataGraphObject = {
     inputs: [
