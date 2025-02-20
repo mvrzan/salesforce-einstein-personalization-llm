@@ -18,8 +18,6 @@ export const parseDataGraph = (dataGraph) => {
     return { chatMessage: chatMessage.chatMessage__c, dateTime: chatMessage.eventDate__c };
   });
 
-  console.log("formattedChatMessages", formattedChatMessages);
-
   const latestMessage = formattedChatMessages.reduce((latest, current) => {
     return new Date(latest.dateTime) > new Date(current.dateTime) ? latest : current;
   });
