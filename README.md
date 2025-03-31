@@ -36,7 +36,6 @@ This project showcases how you can personalized your website based on a chat con
       - [Salesforce Flows](#salesforce-flows)
       - [Personalization](#personalization)
       - [Prompt](#prompt)
-      - [Apex Class](#apex-class)
       - [Custom Metadata Types](#custom-metadata-types)
       - [Agentforce](#agentforce)
   - [Deployment](#deployment)
@@ -113,7 +112,7 @@ The application flow is the following:
 
 #### Agentforce Architecture
 
-![](./screenshots/agentforce-architecture-diagram.png)
+![](./screenshots/heroku_applink_3rd_party_chat.png)
 
 The application flow is the following:
 
@@ -191,7 +190,6 @@ The application flow is the following:
 - [Salesforce Data Cloud](https://www.salesforce.com/data/)
 - [Data Cloud Data Graphs](https://help.salesforce.com/s/articleView?id=sf.c360_a_data_graphs.htm&type=5)
 - [Salesforce Flows](https://help.salesforce.com/s/articleView?id=platform.flow.htm&type=5)
-- [Apex](https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_intro_what_is_apex.htm)
 - [Prompts](https://www.salesforce.com/artificial-intelligence/prompt-builder/)
 - [Salesforce Personalization](https://help.salesforce.com/s/articleView?id=mktg.mc_persnl.htm&type=5)
 - [Agentforce](https://www.salesforce.com/ca/agentforce/)
@@ -429,10 +427,6 @@ Return only the value of the device id and category in the following format. Do 
 
 deviceId,category
 ```
-
-#### Apex Class
-
-Ensure you deploy the [Apex code](./salesforce/) to your org.
 
 #### Custom Metadata Types
 
