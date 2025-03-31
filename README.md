@@ -7,13 +7,13 @@
 <a  href="https://developer.salesforce.com/docs/marketing/einstein-personalization/guide/overview.html"><img  src="./screenshots/personalization.png"  alt="Salesforce Personalization"  width="150" height="150"  hspace="50"/></a>
 <p/>
 
-# Salesforce Personalization with Agentforce and a 3rd Party Chat Service
+# Salesforce Personalization with Agentforce and a 3rd Party Chat Service - Powered by Heroku AppLink
 
-This project showcases how you can personalized your website based on a chat conversation you have with a Agentforce chatbot or a 3rd party chat service.
+This project showcases how you can personalized your website based on a chat conversation you have with a Agentforce chatbot or a 3rd party chat service. The main difference between this and the [main branch](https://github.com/mvrzan/salesforce-einstein-personalization-llm) is that this branch showcases how to leverage the [Heroku AppLink](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true) integration.
 
 # Table of Contents
 
-- [Salesforce Personalization with Agentforce and a 3rd Party Chat Service](#salesforce-personalization-with-agentforce-and-a-3rd-party-chat-service)
+- [Salesforce Personalization with Agentforce and a 3rd Party Chat Service - Powered by Heroku AppLink](#salesforce-personalization-with-agentforce-and-a-3rd-party-chat-service---powered-by-heroku-applink)
 - [Table of Contents](#table-of-contents)
   - [What does it do?](#what-does-it-do)
   - [How does it work?](#how-does-it-work)
@@ -40,7 +40,7 @@ This project showcases how you can personalized your website based on a chat con
       - [Custom Metadata Types](#custom-metadata-types)
       - [Agentforce](#agentforce)
   - [Deployment](#deployment)
-      - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
+    - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
 - [Kudos](#kudos)
 - [License](#license)
 - [Disclaimer](#disclaimer)
