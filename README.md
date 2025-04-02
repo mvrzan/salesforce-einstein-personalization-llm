@@ -40,7 +40,7 @@ This project showcases how you can personalized your website based on a chat con
       - [Custom Metadata Types](#custom-metadata-types)
       - [Agentforce](#agentforce)
   - [Deployment](#deployment)
-    - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
+      - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
 - [Kudos](#kudos)
 - [License](#license)
 - [Disclaimer](#disclaimer)
@@ -361,13 +361,13 @@ Create three flows, one for the 3rd party chat, one for the Agentforce chat, and
 
 3rd party chat Flow
 
-![](./screenshots/3rd-party-flow.png)
+![](./screenshots/heroku-3rd-party-flow.png)
 
 > NOTE: This Flow API names is going to be passed over to the `server` `.env` file
 
 Agentforce chat Flow
 
-![](./screenshots/agentforce-flow.png)
+![](./screenshots/heroku-agentforce-flow.png)
 
 Catalog Categories Flow
 
