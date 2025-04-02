@@ -100,7 +100,8 @@ The application flow is the following:
 4. Once the LLM deduces the product category, it will then return that in a specific format: `category,id`
 5. The returned data gets passed back to the Salesforce Flow
 6. Salesforce Flow takes the provided product category data and passes it off to the Heroku route `/update-service`
-7. The custom [Apex class](./salesforce/force-app/main/default/classes/sendEventEP.cls) writes the data back to the Data Cloud's real-time Data Graph
+7. The Flow then invokes the Heroku `/update-service` endpoint
+8. The [`/update-service` route](./server/src/controllers/update-service.js) than handles the logic of writing the data back to the Data Cloud's real-time Data Graph
 
 **Client Personalization**
 
@@ -137,8 +138,9 @@ The application flow is the following:
 6. The custom **Prompt** is instructed to deduce the product category based on the provided chat message and the provided product catalog
 7. Once the LLM deduces the product category, it will then return that in a specific format: `category,id`
 8. The returned data gets passed back to the Salesforce Flow
-9. Salesforce Flow takes the provided product category data and passes it off to a custom Apex class
-10. The custom [Apex class](./salesforce/force-app/main/default/classes/sendEventEP.cls) writes the data back to the Data Cloud's real-time Data Graph
+9. Salesforce Flow takes the provided product category data and passes it off to the Heroku route `/update-service`
+10. The Flow then invokes the Heroku `/update-service` endpoint
+11. The [`/update-service` route](./server/src/controllers/update-service.js) than handles the logic of writing the data back to the Data Cloud's real-time Data Graph
 
 **Client Personalization**
 
