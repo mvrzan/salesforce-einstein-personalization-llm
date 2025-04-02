@@ -1,5 +1,4 @@
 import crypto from "crypto";
-
 import { getCurrentTimestamp } from "../utils/getCurrentTimestamp.js";
 
 export const updateService = async (req, res) => {
