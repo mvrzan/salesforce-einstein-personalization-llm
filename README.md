@@ -35,6 +35,7 @@ This project showcases how you can personalized your website based on a chat con
       - [Salesforce Connected App](#salesforce-connected-app)
       - [Salesforce Flows](#salesforce-flows)
       - [Personalization](#personalization)
+      - [Heroku Integration](#heroku-integration)
       - [Prompt](#prompt)
       - [Custom Metadata Types](#custom-metadata-types)
       - [Agentforce](#agentforce)
@@ -53,6 +54,8 @@ This project demonstrates how to leverage Salesforce Personalization to tailor a
 The chat messages are then picked up by the Salesforce backend and a Heroku web server that is empowered with the Heroku AppLink integration, and makes it ready for Salesforce Personalization.
 
 When a relevant message is detected, it triggers a network call to the Salesforce Personalization which delivers individualized recommendations. This ensures that web content, product suggestions, and visual styling are dynamically adapted to each user’s conversation context, providing a customized and engaging experience.
+
+> WARNING: The Heroku AppLink is currently in pilot. The products offered as part of the pilot aren’t intended for production use and are considered as a Beta Service and are subject to the Beta Services terms at https://www.salesforce.com/company/legal/agreements.jsp.
 
 ## How does it work?
 
@@ -278,8 +281,6 @@ VITE_NOTIFICATION_SERVICE=http://localhost:3000/v1/notification-service
 
 **Server:**
 
-> NOTE: You only need to do this if you want to use the 3rd party chat library. For details why, please read the [application flow](./README.md#3rd-party-chat-architecture).
-
 For details on creating a Salesforce token, please visit the [official documentation](https://help.salesforce.com/s/articleView?id=sf.connected_app_create.htm&type=5).
 
 ```
@@ -289,7 +290,13 @@ CLIENT_SECRET=
 SALESFORCE_LOGIN_URL=https://login.salesforce.com
 SALESFORCE_INSTANCE_URL=
 SALESFORCE_API_VERSION=v61.0
+
+# Flow details
 AI_FLOW_NAME=
+
+# Data Cloud details
+DATA_CLOUD_TENANT_URL=
+DATA_CLOUD_APP_ID=
 ```
 
 > NOTE: If you want to deploy this application to Heroku, you will have to create all of the above variables (for both the client and the server) as Heroku environment variables. This can be done via the [command line or the Heroku Dashboard UI](https://devcenter.heroku.com/articles/config-vars).
@@ -379,6 +386,12 @@ Catalog Categories Flow
 2. Set the type to `Recommendations`
 3. Create a Personalization Point called `recsEP1`
 4. Select the newly created Personalization Schema
+
+#### Heroku Integration
+
+For the details on how to enable Heroku Integration, please follow the following [guide](https://devcenter.heroku.com/articles/getting-started-heroku-integration?singlepage=true).
+
+> WARNING: The Heroku AppLink is currently in pilot. The products offered as part of the pilot aren’t intended for production use and are considered as a Beta Service and are subject to the Beta Services terms at https://www.salesforce.com/company/legal/agreements.jsp.
 
 #### Prompt
 
