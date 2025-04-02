@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: Einstein Personalization API
+  description: API for interacting with Einstein Personalization in Data Cloud
+  version: 1.0.0
+
+servers:
+  - url: /v1
+    description: Base path for API endpoints
+
+paths:
+  /update-service:
+    post:
+      summary: Update user data in Einstein Personalization
+      description: Sends an identityAttributeUpdate event to Einstein Personalization with catalog and device information
+      operationId: updateService
+      tags:
+        - Einstein Personalization
+      security:
+        - salesforceAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deviceId
+                - catalogId
+              properties:
+                deviceId:
+                  type: string
+                  description: Unique identifier for the device/user
+                  example: "123e4567-e89b-12d3-a456-426614174000"
+                catalogId:
+                  type: string
+                  description: Catalog identifier for the product the user engaged with
+                  example: "pro-12345"
+      responses:
+        "200":
+          description: Event successfully sent to Einstein Personalization
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Event successfully sent to Data Cloud hot layer!"
+                  data:
+                    type: object
+                    description: Response data from Einstein Personalization (if any)
+        "400":
+          description: Bad request - missing required parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Missing required parameters: deviceId and catalogId are required"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Failed to process request"
+                  details:
+                    type: string
+                    example: "Error details..."
+
+components:
+  securitySchemes:
+    salesforceAuth:
+      type: apiKey
+      description: Salesforce authentication handled by middleware
+      name: Authorization
+      in: header
