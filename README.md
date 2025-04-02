@@ -473,7 +473,7 @@ To deploy the application to Heroku, please follow the [official instructions](h
 
 #### Can I deploy this anywhere else other than Heroku?
 
-Absolutely! The only reason why Heroku is used here is because it is owned by Salesforce and at the moment of creating this I am a Salesforce employee.
+No. This version of the project uses the Heroku Integration and therefore can only be deployed on Heroku.
 
 > NOTE: Don't forget to re-create the environment variables in Heroku as the `.env` file will be ignored. Also, this is a proof of concept and not something that should be deployed in production.
 
