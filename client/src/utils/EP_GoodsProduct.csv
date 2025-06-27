@@ -1,0 +1,17 @@
+GoodsProductId,ImageUrl,ProductName,ProductDescription,PrimaryProductCategory,Category,ProductType,Source
+1001,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/camera.avif,Camera,A really good camera,1001,Camera,Product,EPAI
+1002,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/headphones.avif,Headphones,Really good headphones,1002,Headphones,Product,EPAI
+1003,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/drone.avif,Drone,Top of the line drone,1003,Drone,Product,EPAI
+1004,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/smartwatch.avif,Smartwatch,Best smartwatch out there,1004,Smartwatch,Product,EPAI
+1005,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/camera-tripod.avif,Tripod,Awesome tripod for cameras,1001,Camera,Accessories,EPAI
+1006,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/camera-bag.avif,Travel Bag,Convenient bag for camera,1001,Camera,Accessories,EPAI
+1007,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/camera-lens.avif,Lenses,Beautiful lenses for camera,1001,Camera,Accessories,EPAI
+1008,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/heaphone-bag.jpg,Bag,Cool bag for headphones,1002,Headphones,Accessories,EPAI
+1009,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/headphone-cords.jpg,Cords,Awesome cords for headphones,1002,Headphones,Accessories,EPAI
+1010,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/headphone-stand.jpg,Holding Stand,Great stand for headphones,1002,Headphones,Accessories,EPAI
+1011,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/drone-goggles.jpg,Goggles,High tech goggles for drones,1003,Drone,Accessories,EPAI
+1012,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/drone-controller.jpg,Controller,Great controller for drones,1003,Drone,Accessories,EPAI
+1013,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/drone-bag.jpg,Bag,Cool bag for drones,1003,Drone,Accessories,EPAI
+1014,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/smartwatch-straps.jpg,Strap,Great straps for smartwatches,1004,Smartwatch,Accessories,EPAI
+1015,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/smartwatch-reapir-kit.jpg,Repair Kit,Repair kit for smartwatches,1004,Smartwatch,Accessories,EPAI
+1016,https://mvrzan.s3.us-east-1.amazonaws.com/EP_AI_project/smartwatch-stand.jpg,Display Stand,Nice display stand for smartwatches,1004,Smartwatch,Accessories,EPAI

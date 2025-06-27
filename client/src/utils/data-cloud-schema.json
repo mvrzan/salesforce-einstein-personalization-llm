@@ -219,6 +219,13 @@
           "isDataRequired": false
         },
         {
+          "masterLabel": "lastProductEngaged",
+          "dataType": "Text",
+          "developerName": "lastProductEngaged",
+          "isDataRequired": false,
+          "isCurrencyIsoCode": false
+        },
+        {
           "masterLabel": "pageView",
           "developerName": "pageView",
           "dataType": "Number",
