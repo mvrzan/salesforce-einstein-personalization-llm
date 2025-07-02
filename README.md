@@ -1,6 +1,6 @@
 <p align="center">
-<a  href="https://www.salesforce.com/"><img  src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg"  alt="Salesforce"  width="150" height="150" hspace="50" /></a>
-<a  href="https://www.salesforce.com/data/"><img  src="https://cdn.vidyard.com/hubs/logos/60cb440e-ec9e-4786-9a95-85fdc45dcb89.png"  alt="Data Cloud"  width="150" height="150" hspace="50"/></a>
+<a  href="https://www.salesforce.com/"><img  src="./screenshots/salesforce-logo.svg"  alt="Salesforce"  width="150" height="150" hspace="50" /></a>
+<a  href="https://www.salesforce.com/data/"><img  src="./screenshots/data_cloud_logo.png"  alt="Data Cloud"  width="150" height="150" hspace="50"/></a>
 <a  href="https://www.salesforce.com/ca/agentforce/"><img  src="./screenshots/agentforce.webp"  alt="Agentforce"  width="150" height="150" hspace="50"/></a>
 <a  href="https://www.heroku.com/"><img  src="./screenshots/heroku.webp"  alt="Heroku"  width="150" height="150" hspace="50"/></a>
 <a  href="https://getstream.io/"><img  src="https://miro.medium.com/v2/resize:fit:2400/1*m-gTGzrcRxlkNF3gxGbgdQ.png"  alt="Get Stream IO"  width="150" height="150" hspace="50"/></a>
@@ -40,7 +40,7 @@ This project showcases how you can personalized your website based on a chat con
       - [Custom Metadata Types](#custom-metadata-types)
       - [Agentforce](#agentforce)
   - [Deployment](#deployment)
-    - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
+      - [Can I deploy this anywhere else other than Heroku?](#can-i-deploy-this-anywhere-else-other-than-heroku)
 - [Kudos](#kudos)
 - [License](#license)
 - [Disclaimer](#disclaimer)
